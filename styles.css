@@ -26,6 +26,11 @@ p, h1, h2, h3, figure { margin: 0; }
 .paper-stage { background-color: var(--paper); background-image: linear-gradient(#6378720d 1px, transparent 1px), linear-gradient(90deg, #6378720d 1px, transparent 1px); background-size: 54px 54px; background-position: center top; }
 .site-header { padding: 37px 4.5% 25px; }
 .header-inner { max-width: 1440px; margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+.header-identity { display: flex; align-items: center; gap: 22px; }
+.profile-icons { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.profile-icons a { display: grid; place-items: center; width: 36px; height: 36px; color: var(--ink); transition: color .2s; }
+.profile-icons a:hover { color: var(--orange); }
+.profile-icons svg { display: block; width: 23px; height: 23px; }
 .wordmark { position: relative; padding-bottom: 5px; font-size: clamp(23px, 2.3vw, 34px); font-weight: 500; letter-spacing: -1.7px; line-height: 1.05; white-space: nowrap; }
 .wordmark::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: var(--orange); transform: rotate(-.45deg); transform-origin: left; }
 .name-dot { padding-inline: 3px; }
@@ -52,7 +57,6 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
 .social-links a { display: inline-flex; align-items: center; gap: 7px; padding-block: 4px; }
 .social-links a:hover { color: var(--orange); }
 .social-links a > span[aria-hidden] { font-size: 14px; }
-.hero-socials { margin-top: 24px; color: #50594e; }
 .portrait { width: 100%; max-width: 371px; justify-self: center; padding-top: 12px; }
 .portrait-frame { position: relative; isolation: isolate; }
 .portrait-frame::before { content: ""; position: absolute; inset: -21px -24px 20px 29px; z-index: -1; background-color: #2e342e; background-image: repeating-linear-gradient(0deg, transparent 0 2px, #ffffff04 2px 3px); transform: rotate(2deg); clip-path: polygon(1% 0, 100% 1%, 99% 99%, 0 100%); }
@@ -163,7 +167,6 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
   .portrait figcaption { display: block; font-size: 7px; line-height: 1.7; }
   .portrait figcaption span:last-child { display: none; }
   .hero-cta { margin-top: 24px; font-size: 9px; gap: 20px; }
-  .hero-socials { margin-top: 20px; font-size: 11px; }
   .section-link { gap: 9px; padding-inline: 15px; }
   .section-number { font-size: 8px; }
   .section-link h3 { font-size: 28px; }
@@ -180,6 +183,11 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
   .site-header { padding: 26px 25px 0; }
   .header-inner { flex-direction: column; align-items: flex-start; gap: 22px; }
   .wordmark { font-size: clamp(23px, 6.8vw, 29px); letter-spacing: -1.3px; }
+  .header-identity { gap: 12px; }
+  .header-identity .wordmark { font-size: clamp(18px, 5.65vw, 29px); letter-spacing: -1px; }
+  .profile-icons { gap: 4px; }
+  .profile-icons a { width: 34px; height: 34px; }
+  .profile-icons svg { width: 22px; height: 22px; }
   .main-nav { width: 100%; gap: 30px; padding-bottom: 12px; border-bottom: 1px solid #5f706520; }
   .main-nav a { font-size: 11px; padding-block: 6px; }
   .main-nav a::after { bottom: 0; }
@@ -190,7 +198,6 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
   .introduction { max-width: 460px; font-size: 14px; line-height: 1.75; margin-top: 25px; }
   .introduction p + p { margin-top: 17px; }
   .hero-cta { font-size: 10px; margin-top: 28px; }
-  .hero-socials { margin-top: 24px; font-size: 12px; gap: 28px; }
   .portrait { width: calc(100% - 26px); max-width: 365px; margin-right: 14px; padding-top: 4px; }
   .portrait-frame img { aspect-ratio: 3 / 3.7; object-position: 50% 79%; }
   .portrait-frame::before { inset: -13px -16px 17px 21px; }
