@@ -14,7 +14,8 @@
   <meta property="og:image:alt" content="Diego Aranguren reading outdoors under the trees.">
   <link rel="canonical" href="https://diegoarangureen.github.io/">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./styles.css?v=20260930-icons-2">
+  <link rel="stylesheet" href="./styles.css?v=20261001-carousel">
+  <script src="./carousel.js?v=20261001" defer></script>
   <title>Diego Aranguren — Economics, analytics & ideas</title>
 </head>
 <body id="top" class="home-page">
@@ -54,12 +55,21 @@
           </div>
           <a class="editorial-link hero-cta" href="./projects/">EXPLORE MY PROJECTS <span aria-hidden="true">↗</span></a>
         </div>
-        <figure class="portrait">
+        <figure class="portrait" data-carousel aria-label="Personal photos" aria-roledescription="carousel">
           <div class="portrait-frame">
-            <img src="./assets/diego-aranguren.jpeg" width="828" height="1472" alt="Diego Aranguren reading outdoors under the trees." fetchpriority="high" decoding="async">
+            <div class="portrait-viewport" id="portrait-slides">
+              <div class="portrait-slide" role="group" aria-roledescription="slide" aria-label="1 of 2" data-caption="A MOMENT BETWEEN IDEAS.">
+                <img src="./assets/diego-aranguren.jpeg" width="828" height="1472" alt="Diego Aranguren reading outdoors under the trees." fetchpriority="high" decoding="async">
+              </div>
+              <div class="portrait-slide portrait-slide--ugent" role="group" aria-roledescription="slide" aria-label="2 of 2" data-caption="first day in UGent" hidden>
+                <img src="./assets/diego-ugent.jpeg" width="920" height="2048" alt="Diego Aranguren on his first day at UGent." decoding="async">
+              </div>
+            </div>
+            <button class="portrait-arrow portrait-arrow--previous" type="button" data-previous aria-label="Previous photo" aria-controls="portrait-slides" title="Previous photo" hidden><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 5-7 7 7 7"/></svg></button>
+            <button class="portrait-arrow portrait-arrow--next" type="button" data-next aria-label="Next photo" aria-controls="portrait-slides" title="Next photo" hidden><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 5 7 7-7 7"/></svg></button>
             <svg class="photo-mark" viewBox="0 0 84 53" fill="none" aria-hidden="true"><path d="M5 35c15-8 39-10 66-4M6 43c21-10 40-10 66-5M63 18l11 13-15 5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          <figcaption><span>A MOMENT BETWEEN IDEAS.</span><span>01 / INTRO</span></figcaption>
+          <figcaption aria-live="polite" aria-atomic="true"><span data-photo-caption>A MOMENT BETWEEN IDEAS.</span><span data-photo-count>01 / 02</span></figcaption>
         </figure>
       </section>
       <section class="explore" aria-labelledby="explore-title">
