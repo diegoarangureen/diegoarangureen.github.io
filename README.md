@@ -11,8 +11,10 @@ Web personal en inglés con presentación, fotografía y enlaces a LinkedIn y Gi
 - `index.html`: portada con presentación y enlaces.
 - `carousel.js`: navegación manual entre las fotos de la portada, con botones y flechas del teclado. CSS aplica un fundido de 0,6 segundos, desactivado cuando se prefiere movimiento reducido.
 - `projects/index.html`: ficha de MS Capital Market Forecasting, con descripción, portada y enlaces al repositorio y a sus experimentos.
-- `blog/index.html`: blog, pendiente de contenido.
-- `blog/posts/`: carpeta para las entradas originales en Markdown; [organización y publicación](blog/posts/README.md). Estilos de listado y lectura preparados; primera entrada pendiente de recibir el documento.
+- `blog/index.html`: listado de entradas, con número y título enlazados a la página de lectura.
+- `blog/posts/`: entradas originales en Markdown; [organización y publicación](blog/posts/README.md).
+- `blog/posts/01-que-me-trae-hasta-el-dia-de-hoy.md`: Blog 01, convertido de `Bog 01 Corrected.docx` conservando el texto y el enlace del documento.
+- `blog/01-que-me-trae-hasta-el-dia-de-hoy/index.html`: versión publicada del primer artículo, con texto negro directamente sobre el fondo de la web.
 - `cv/index.html`: vista del CV con enlaces para abrir y descargar el PDF y una vista previa en escritorio y móvil.
 - `styles.css`: estilos compartidos y adaptación a móvil.
 - `assets/diego-aranguren.jpeg`: fotografía proporcionada por Diego, sin modificar; el encuadre se ajusta mediante CSS.
@@ -22,7 +24,7 @@ Web personal en inglés con presentación, fotografía y enlaces a LinkedIn y Gi
 - `assets/projects/market-forecasting.jpg`: imagen editorial generada para el proyecto; [procedencia y prompt](assets/projects/README.md).
 - `favicon.svg`: icono de la web.
 
-La web usa HTML, CSS y JavaScript, sin dependencias externas ni proceso de compilación. Se pueden editar directamente los archivos de la web. Las fotos y sus pies se definen en `index.html`. El blog conserva un bloque `coming-soon` hasta incorporar entradas. Para actualizar el CV, añade el nuevo PDF, vuelve a generar la vista previa y cambia las rutas y la fecha en `cv/index.html`.
+La web usa HTML, CSS y JavaScript, sin dependencias externas ni proceso de compilación. Se pueden editar directamente los archivos de la web. Las fotos y sus pies se definen en `index.html`. Para actualizar una entrada, modifica su Markdown y su HTML publicado; el listado está en `blog/index.html`. Para actualizar el CV, añade el nuevo PDF, vuelve a generar la vista previa y cambia las rutas y la fecha en `cv/index.html`.
 
 La descripción del proyecto se basa en su [README](https://github.com/diegoarangureen/mscapital-market-forecasting) y en su registro de experimentos, revisados el 30 de septiembre de 2026. La ficha evita fijar rankings o resultados temporales. La portada es conceptual: no representa resultados del modelo.
 

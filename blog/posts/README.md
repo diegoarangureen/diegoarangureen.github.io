@@ -11,10 +11,16 @@ Esta carpeta almacena las entradas originales en Markdown (`.md`).
 
 ## Publicación
 
-El listado de `blog/index.html` mostrará **Blog 01** y el título real, enlazados a la página de lectura `blog/01-titulo-de-la-entrada/index.html`.
+El listado de `blog/index.html` muestra el número de entrada (**Blog 01**, etc.) y su título real, enlazados a la página de lectura `blog/01-titulo-de-la-entrada/index.html`.
 
 La página de lectura usa los estilos compartidos `.blog-article` y `.article-content`: texto negro directamente sobre el fondo de la web, sin una tarjeta o panel detrás. Conserva la cabecera, los iconos de contacto y un enlace de regreso al blog.
 
 GitHub Pages sirve HTML estático en este repositorio: al publicar una entrada hay que conservar el archivo Markdown aquí y preparar su correspondiente HTML. No hay conversión automática configurada.
 
-La primera entrada está pendiente de recibir su documento de origen; todavía no se ha creado ni publicado contenido de ejemplo.
+## Blog 01
+
+- Título: **¿Qué me trae hasta el día de hoy?**
+- Documento de origen: `Bog 01 Corrected.docx`.
+- Markdown: [01-que-me-trae-hasta-el-dia-de-hoy.md](01-que-me-trae-hasta-el-dia-de-hoy.md).
+- Página publicada: [leer el artículo](https://diegoarangureen.github.io/blog/01-que-me-trae-hasta-el-dia-de-hoy/).
+- Se conserva el contenido del documento, incluido su enlace al blog de Álvaro. El documento de Word permanece fuera del repositorio.
