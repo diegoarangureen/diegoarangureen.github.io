@@ -1,6 +1,6 @@
 # Diego Aranguren — Personal website
 
-Web personal en inglés con presentación, fotografía y enlaces a LinkedIn y GitHub. Diseño inspirado en la composición editorial de [johnnyharris.ch](https://www.johnnyharris.ch/), con estilos propios.
+Web personal con interfaz en inglés y español, presentación, fotografía y enlaces a LinkedIn y GitHub. Diseño inspirado en la composición editorial de [johnnyharris.ch](https://www.johnnyharris.ch/), con estilos propios.
 
 - Web: https://diegoarangureen.github.io/
 - Repositorio: https://github.com/diegoarangureen/diegoarangureen.github.io
@@ -9,6 +9,7 @@ Web personal en inglés con presentación, fotografía y enlaces a LinkedIn y Gi
 ## Archivos
 
 - `index.html`: portada con presentación y enlaces.
+- `language.js`: selector ES/EN y traducciones de la interfaz. Recuerda el idioma elegido con `localStorage` (`site-language`); el idioma inicial es inglés.
 - `carousel.js`: navegación manual entre las fotos de la portada, con botones y flechas del teclado. CSS aplica un fundido de 0,6 segundos, desactivado cuando se prefiere movimiento reducido.
 - `projects/index.html`: ficha de MS Capital Market Forecasting, con descripción, portada y enlaces al repositorio y a sus experimentos.
 - `blog/index.html`: listado de entradas, con número y título enlazados a la página de lectura.
@@ -25,6 +26,8 @@ Web personal en inglés con presentación, fotografía y enlaces a LinkedIn y Gi
 - `favicon.svg`: icono de la web.
 
 La web usa HTML, CSS y JavaScript, sin dependencias externas ni proceso de compilación. Se pueden editar directamente los archivos de la web. Las fotos y sus pies se definen en `index.html`. Para actualizar una entrada, modifica su Markdown y su HTML publicado; el listado está en `blog/index.html`. Para actualizar el CV, añade el nuevo PDF, vuelve a generar la vista previa y cambia las rutas y la fecha en `cv/index.html`.
+
+El selector ES/EN traduce los textos generales, la presentación, los controles y los pies de foto. Los artículos, el contenido de los proyectos y el PDF del CV conservan su idioma original. El HTML contiene el texto inglés; `data-i18n` identifica su traducción en el diccionario de `language.js`, sin reemplazar los elementos hijos. Los atributos accesibles y los pies del carrusel usan `data-i18n-label`, `data-i18n-title`, `data-i18n-alt`, `data-i18n-role` y `data-i18n-caption`. Al crear páginas nuevas, incluye el selector y el script con la ruta relativa adecuada. Sin JavaScript se mantiene la web en inglés y el selector permanece oculto.
 
 La descripción del proyecto se basa en su [README](https://github.com/diegoarangureen/mscapital-market-forecasting) y en su registro de experimentos, revisados el 30 de septiembre de 2026. La ficha evita fijar rankings o resultados temporales. La portada es conceptual: no representa resultados del modelo.
 

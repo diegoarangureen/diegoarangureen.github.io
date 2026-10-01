@@ -25,7 +25,10 @@ p, h1, h2, h3, figure { margin: 0; }
 .content-width { width: min(1120px, calc(100% - 112px)); margin-inline: auto; }
 .paper-stage { background-color: var(--paper); background-image: linear-gradient(#6378720d 1px, transparent 1px), linear-gradient(90deg, #6378720d 1px, transparent 1px); background-size: 54px 54px; background-position: center top; }
 .site-header { padding: 37px 4.5% 25px; }
-.header-inner { max-width: 1440px; margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+.header-inner { max-width: 1440px; margin-inline: auto; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 30px; }
+.language-toggle { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 1px solid var(--ink); border-radius: 0; background: transparent; color: var(--ink); font: 600 11px/1 var(--sans); letter-spacing: .7px; cursor: pointer; transition: color .2s, background .2s; }
+.language-toggle[hidden] { display: none; }
+.language-toggle:hover { background: var(--ink); color: var(--paper); }
 .header-identity { display: flex; align-items: center; gap: 18px; font-size: clamp(23px, 2.3vw, 34px); }
 .header-identity .wordmark { font-size: inherit; }
 .profile-icons { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
@@ -192,6 +195,12 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
   .section-link p { font-size: 10px; }
 }
 
+@media (max-width: 900px) {
+  .header-identity { grid-column: 1 / -1; }
+  .main-nav { grid-column: 1 / 3; }
+  .language-toggle { grid-column: 3; }
+}
+
 @media (max-width: 800px) {
   .site-header { padding: 28px 32px 20px; }
   .wordmark { font-size: 24px; letter-spacing: -1.1px; }
@@ -220,12 +229,12 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
 @media (max-width: 620px) {
   .paper-stage { background-size: 42px 42px; }
   .site-header { padding: 26px 25px 0; }
-  .header-inner { flex-direction: column; align-items: flex-start; gap: 22px; }
+  .header-inner { gap: 18px 14px; padding-bottom: 12px; border-bottom: 1px solid #5f706520; }
   .wordmark { font-size: clamp(23px, 6.8vw, 29px); letter-spacing: -1.3px; }
   .header-identity { gap: 12px; font-size: clamp(18px, 5.65vw, 29px); }
   .header-identity .wordmark { letter-spacing: -1px; }
   .profile-icons { gap: 4px; }
-  .main-nav { width: 100%; gap: 30px; padding-bottom: 12px; border-bottom: 1px solid #5f706520; }
+  .main-nav { width: 100%; gap: 24px; }
   .main-nav a { font-size: 11px; padding-block: 6px; }
   .main-nav a::after { bottom: 0; }
   .content-width { width: calc(100% - 50px); }
