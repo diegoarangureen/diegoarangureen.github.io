@@ -12,6 +12,7 @@ Web personal en inglés con presentación, fotografía y enlaces a LinkedIn y Gi
 - `carousel.js`: navegación manual entre las fotos de la portada, con botones y flechas del teclado. CSS aplica un fundido de 0,6 segundos, desactivado cuando se prefiere movimiento reducido.
 - `projects/index.html`: ficha de MS Capital Market Forecasting, con descripción, portada y enlaces al repositorio y a sus experimentos.
 - `blog/index.html`: blog, pendiente de contenido.
+- `blog/posts/`: carpeta para las entradas originales en Markdown; [organización y publicación](blog/posts/README.md). Estilos de listado y lectura preparados; primera entrada pendiente de recibir el documento.
 - `cv/index.html`: vista del CV con enlaces para abrir y descargar el PDF y una vista previa en escritorio y móvil.
 - `styles.css`: estilos compartidos y adaptación a móvil.
 - `assets/diego-aranguren.jpeg`: fotografía proporcionada por Diego, sin modificar; el encuadre se ajusta mediante CSS.
