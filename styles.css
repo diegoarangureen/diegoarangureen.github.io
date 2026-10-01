@@ -111,8 +111,8 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
 .more-sections { display: flex; gap: 35px; margin-top: 35px; }
 
 .blog-list { padding: 0; margin: 0; list-style: none; }
-.section-page-heading.blog-heading { margin-block: 30px 24px; }
-.section-page .blog-heading h1 { font-size: clamp(36px, 4vw, 46px); line-height: 1.05; letter-spacing: -1px; }
+.section-page-heading.blog-heading, .section-page-heading.compact-heading { margin-block: 30px 24px; }
+.section-page .blog-heading h1, .section-page .compact-heading h1 { font-size: clamp(36px, 4vw, 46px); line-height: 1.05; letter-spacing: -1px; }
 .blog-entry { display: grid; grid-template-columns: 90px minmax(0, 1fr); align-items: baseline; gap: 24px; padding: 30px 0; color: #111; border-top: 1px solid var(--line); }
 .blog-list > li:last-child .blog-entry { border-bottom: 1px solid var(--line); }
 .blog-kicker { color: #111; font: 500 10px/1.7 var(--sans); letter-spacing: 1.4px; }
