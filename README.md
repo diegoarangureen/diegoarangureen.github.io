@@ -9,7 +9,7 @@ Web personal en inglés con presentación, fotografía y enlaces a LinkedIn y Gi
 ## Archivos
 
 - `index.html`: portada con presentación y enlaces.
-- `carousel.js`: navegación manual entre las fotos de la portada, con botones y flechas del teclado.
+- `carousel.js`: navegación manual entre las fotos de la portada, con botones y flechas del teclado. CSS aplica un fundido de 0,6 segundos, desactivado cuando se prefiere movimiento reducido.
 - `projects/index.html`: ficha de MS Capital Market Forecasting, con descripción, portada y enlaces al repositorio y a sus experimentos.
 - `blog/index.html`: blog, pendiente de contenido.
 - `cv/index.html`: vista del CV con enlaces para abrir y descargar el PDF y una vista previa en escritorio y móvil.

@@ -13,7 +13,12 @@
 
   function showPhoto(index) {
     current = (index + slides.length) % slides.length;
-    slides.forEach((slide, position) => { slide.hidden = position !== current; });
+    slides.forEach((slide, position) => {
+      const active = position === current;
+      slide.hidden = false;
+      slide.classList.toggle('is-active', active);
+      slide.setAttribute('aria-hidden', String(!active));
+    });
     caption.textContent = slides[current].dataset.caption;
     count.textContent = `${String(current + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
   }
