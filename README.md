@@ -1,6 +1,6 @@
 # Diego Aranguren — Personal website
 
-Web personal con interfaz en inglés y español, presentación, fotografía y enlaces a LinkedIn y GitHub. Diseño inspirado en la composición editorial de [johnnyharris.ch](https://www.johnnyharris.ch/), con estilos propios.
+Web personal con interfaz en inglés y español, presentación, fotografía y enlaces a LinkedIn y GitHub. Portada verde profundo, fotografías personales y páginas claras para leer. [Decisiones de diseño y comparativa de skills](DESIGN.md).
 
 - Web: https://diegoarangureen.github.io/
 - Repositorio: https://github.com/diegoarangureen/diegoarangureen.github.io
@@ -18,6 +18,7 @@ Web personal con interfaz en inglés y español, presentación, fotografía y en
 - `blog/01-que-me-trae-hasta-el-dia-de-hoy/index.html`: versión publicada del primer artículo, con texto negro directamente sobre el fondo de la web.
 - `cv/index.html`: vista del CV con enlaces para abrir y descargar el PDF y una vista previa en escritorio y móvil.
 - `styles.css`: estilos compartidos y adaptación a móvil.
+- `assets/fonts/`: Literata y Source Sans 3, alojadas localmente en WOFF2 con sus licencias.
 - `assets/diego-aranguren.jpeg`: fotografía proporcionada por Diego, sin modificar; el encuadre se ajusta mediante CSS.
 - `assets/diego-ugent.jpeg`: segunda foto de la portada, con el pie «first day in UGent». El archivo original se conserva; CSS oculta las franjas negras de la captura mediante el encuadre.
 - `assets/cv/CV_DIEGO-ARANGUREN_SEP_2026.pdf`: CV original de septiembre de 2026, sin modificaciones.
