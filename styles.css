@@ -74,21 +74,6 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
 .portrait-arrow svg { display: block; width: 14px; height: 14px; }
 .photo-mark { position: absolute; color: #bd4a2a; width: 71px; left: -39px; bottom: 31px; transform: rotate(-12deg); }
 .portrait figcaption { display: flex; justify-content: space-between; gap: 15px; margin-top: 16px; color: #666b5f; font-size: 8px; letter-spacing: 1px; }
-.explore { background: var(--sage); padding: 38px 0 46px; color: #152d27; }
-.explore-heading { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding-bottom: 25px; }
-.explore-heading h2 { font-family: var(--serif); font-size: 23px; line-height: 1.2; font-weight: 400; letter-spacing: -.25px; }
-.explore-heading > .eyebrow { font-size: 8px; letter-spacing: 1.2px; }
-.explore-heading > .eyebrow > span { display: inline-block; font-size: 14px; margin-left: 8px; }
-.section-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid #1f39343d; }
-.section-link { display: flex; align-items: center; position: relative; gap: 16px; padding: 29px 26px 3px; transition: color .2s; }
-.section-link:first-child { padding-left: 0; }
-.section-link:last-child { padding-right: 0; }
-.section-link + .section-link::before { content: ""; height: 55px; width: 1px; background: #1f39343d; position: absolute; left: 0; top: 30px; }
-.section-number { align-self: flex-start; padding-top: 7px; font-size: 9px; letter-spacing: .5px; }
-.section-link h3 { font: 400 35px/1.15 var(--serif); letter-spacing: -.8px; }
-.section-link p { margin-top: 8px; font-size: 11px; line-height: 1.5; }
-.section-link:hover h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
-.section-link:focus-visible { outline-color: var(--ink); }
 .site-footer { background: var(--paper); }
 .footer-inner { width: min(1310px, calc(100% - 9%)); margin-inline: auto; min-height: 94px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; color: #5e655b; font-size: 10px; }
 .back-to-top { padding-block: 8px; }
@@ -190,9 +175,6 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
   .portrait-frame::before { inset: -18px -18px 18px 24px; }
   .portrait figcaption { font-size: 7px; letter-spacing: .65px; }
   .introduction { font-size: 13px; }
-  .section-link { padding-inline: 20px; gap: 12px; }
-  .section-link h3 { font-size: 31px; }
-  .section-link p { font-size: 10px; }
 }
 
 @media (max-width: 900px) {
@@ -216,9 +198,6 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
   .portrait figcaption { display: block; font-size: 7px; line-height: 1.7; }
   .portrait figcaption span:last-child { display: none; }
   .hero-cta { margin-top: 24px; font-size: 9px; gap: 20px; }
-  .section-link { gap: 9px; padding-inline: 15px; }
-  .section-number { font-size: 8px; }
-  .section-link h3 { font-size: 28px; }
   .footer-inner { width: calc(100% - 64px); }
   .project-story { grid-template-columns: 1fr; gap: 27px; }
   .project-title-block h2 { font-size: 40px; }
@@ -252,17 +231,6 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
   .photo-mark { width: 55px; left: -22px; bottom: 28px; }
   .portrait figcaption { display: flex; margin-top: 13px; font-size: 7px; }
   .portrait figcaption span:last-child { display: inline; }
-  .explore { padding-block: 31px 21px; }
-  .explore-heading { display: block; padding-bottom: 25px; }
-  .explore-heading h2 { font-size: 25px; }
-  .explore-heading > .eyebrow { display: block; margin-top: 13px; font-size: 7px; }
-  .section-links { grid-template-columns: 1fr; }
-  .section-link, .section-link:first-child, .section-link:last-child { padding: 24px 0; gap: 18px; }
-  .section-link + .section-link { border-top: 1px solid #1f39343d; }
-  .section-link + .section-link::before { display: none; }
-  .section-link h3 { font-size: 34px; }
-  .section-link p { font-size: 12px; }
-  .section-number { font-size: 9px; padding-top: 8px; }
   .footer-inner { width: calc(100% - 50px); padding-block: 26px; min-height: 100px; gap: 22px; }
   .footer-inner > p { width: 100%; }
   .section-page { padding-block: 35px 50px; }
@@ -299,4 +267,16 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }
+}
+
+/* Compact links to the three main sections, including on mobile. */
+.explore { background: var(--sage); color: #152d27; padding-block: 18px; }
+.section-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.section-link { display: flex; align-items: center; justify-content: center; min-height: 48px; padding: 6px 12px; font: 400 clamp(21px, 3vw, 32px)/1.2 var(--serif); letter-spacing: -.5px; }
+.section-link + .section-link { border-left: 1px solid #1f39343d; }
+.section-link:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.section-link:focus-visible { outline-color: var(--ink); }
+@media (max-width: 620px) {
+  .explore { padding-block: 12px; }
+  .section-link { padding-inline: 4px; }
 }
