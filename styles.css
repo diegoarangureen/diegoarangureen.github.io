@@ -75,6 +75,10 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
 .photo-mark { position: absolute; color: #bd4a2a; width: 71px; left: -39px; bottom: 31px; transform: rotate(-12deg); }
 .portrait figcaption { display: flex; justify-content: space-between; gap: 15px; margin-top: 16px; color: #666b5f; font-size: 8px; letter-spacing: 1px; }
 .site-footer { background: var(--paper); }
+.home-page { background: var(--sage); }
+.home-page .site-footer { background: var(--sage); }
+.home-page .footer-inner { color: #152d27; }
+.home-page .back-to-top:hover { color: #152d27; text-decoration: underline; }
 .footer-inner { width: min(1310px, calc(100% - 9%)); margin-inline: auto; min-height: 94px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; color: #5e655b; font-size: 10px; }
 .back-to-top { padding-block: 8px; }
 .back-to-top > span { margin-left: 12px; font-size: 15px; }
