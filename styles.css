@@ -257,14 +257,13 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
 
 /* Compact links to the three main sections, including on mobile. */
 .explore { color: var(--paper); padding-block: 30px; }
-.section-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.section-link { display: flex; align-items: center; justify-content: center; min-height: 48px; padding: 6px 12px; font: 400 clamp(21px, 3vw, 32px)/1.2 var(--serif); letter-spacing: -.5px; }
-.section-link + .section-link { border-left: 1px solid #ffffff45; }
+.section-links { display: flex; justify-content: flex-start; gap: clamp(24px, 4vw, 56px); width: min(1310px, calc(100% - 9%)); }
+.section-link { display: flex; align-items: center; min-height: 48px; padding: 6px 0; font: 400 clamp(21px, 3vw, 32px)/1.2 var(--serif); letter-spacing: -.5px; }
 .section-link:hover { text-decoration: underline; text-decoration-color: var(--orange); text-decoration-thickness: 2px; text-underline-offset: 8px; }
 .section-link:focus-visible { outline-color: var(--orange); }
 @media (max-width: 620px) {
   .explore { padding-block: 22px; }
-  .section-link { padding-inline: 4px; }
+  .section-links { width: calc(100% - 50px); }
 }
 
 .blog-date { display: block; margin-top: 12px; color: var(--muted); font: 400 12px/1.7 var(--sans); letter-spacing: 0; }
