@@ -159,10 +159,6 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
 .project-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 16px 24px; margin-top: 24px; }
 .project-actions .solid-link, .project-actions .editorial-link { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 0; background: transparent; color: var(--ink); border: 0; border-bottom: 1px solid var(--orange); font-size: 10px; letter-spacing: .6px; }
 .project-actions a:hover { color: var(--orange); }
-.project-cover { margin: 0; }
-.project-cover a { display: block; }
-.project-cover img { display: block; width: 100%; height: auto; }
-.project-cover figcaption { margin-top: 12px; max-width: 65ch; color: var(--muted); font-size: 12px; line-height: 1.7; }
 @media (max-width: 800px) {
   .project-story { grid-template-columns: 1fr; gap: 24px; margin-bottom: 28px; }
   .project-feature { padding-top: 24px; }
@@ -270,3 +266,5 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
   .explore { padding-block: 12px; }
   .section-link { padding-inline: 4px; }
 }
+
+.blog-date { display: block; margin-top: 12px; color: var(--muted); font: 400 12px/1.7 var(--sans); letter-spacing: 0; }

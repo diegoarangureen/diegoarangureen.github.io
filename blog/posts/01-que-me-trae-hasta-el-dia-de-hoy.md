@@ -1,6 +1,6 @@
 # ¿Qué me trae hasta el día de hoy?
 
-Blog 01
+Blog 01 · 1 de octubre de 2026
 
 He tomado la decisión de escribir un blog porque creo que en el mundo en el que vivimos de sobreestimulación y ahora IA slop pararse de vez en cuando a reflexionar de manera escrita me es muy positivo además soy un gran amante de la literatura.
 
