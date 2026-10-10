@@ -5,19 +5,16 @@
   const tabs = [...notebook.querySelectorAll('[data-notebook-tab]')];
   const header = document.querySelector('.notebook-header');
   const sticky = notebook.querySelector('.notebook-sticky');
+  const stack = notebook.querySelector('.notebook-stack');
   const controls = notebook.querySelector('[data-page-controls]');
   const previous = notebook.querySelector('[data-page-previous]');
   const next = notebook.querySelector('[data-page-next]');
   const counter = notebook.querySelector('[data-page-counter]');
-  const leaf = notebook.querySelector('[data-turning-leaf]');
-  const front = notebook.querySelector('[data-leaf-front]');
-  const back = notebook.querySelector('[data-leaf-back]');
-  const castShadow = notebook.querySelector('.book-cast-shadow');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const narrowScreen = matchMedia('(max-width: 680px)');
-  let animated = false, current = 0, step = 1, start = 0, frame = 0;
-  let displayedProgress = 0, lastTime = 0, leafIndex = -1;
-  const clamp = (value, low = 0, high = 1) => Math.max(low, Math.min(high, value));
+  const compact = matchMedia('(max-width: 359px), (max-height: 649px)');
+  let engine, animated = false, configuring = false, current = 0, destination = 0;
+  let step = 1, start = 0, frame = 0;
+  const clamp = (value, low = 0, high = pages.length - 1) => Math.max(low, Math.min(high, value));
 
   function selectPage(index) {
     current = index;
@@ -26,9 +23,13 @@
       if (position === index) tab.setAttribute('aria-current', 'true');
       else tab.removeAttribute('aria-current');
     });
+    // Move focus outside a page before making it unavailable to the keyboard.
+    if (animated && pages.some((page, position) => position !== index && page.contains(document.activeElement))) {
+      tabs[index].focus({ preventScroll: true });
+    }
     pages.forEach((page, position) => {
       page.inert = animated && position !== index;
-      if (animated && position !== index) page.setAttribute('aria-hidden', 'true');
+      if (page.inert) page.setAttribute('aria-hidden', 'true');
       else page.removeAttribute('aria-hidden');
     });
     previous.disabled = index === 0;
@@ -36,127 +37,126 @@
     counter.textContent = `${String(index + 1).padStart(2, '0')} / ${String(pages.length).padStart(2, '0')}`;
   }
 
-  function snapshot(source) {
-    const copy = source.cloneNode(true);
-    // The leaf is a visual snapshot. Only the original spread can receive focus.
-    for (const element of [copy, ...copy.querySelectorAll('*')]) {
-      element.removeAttribute('id');
-      for (const attribute of [...element.attributes]) {
-        if (attribute.name.startsWith('data-') || ['aria-controls', 'aria-live', 'aria-labelledby'].includes(attribute.name)) element.removeAttribute(attribute.name);
+  // Portrait folds use temporary visual copies. Keep them out of navigation,
+  // translation targets and the accessibility tree, with no duplicate IDs.
+  new MutationObserver(records => {
+    for (const record of records) for (const node of record.addedNodes) {
+      if (!(node instanceof HTMLElement) || !node.matches('.stf__item') || pages.includes(node)) continue;
+      node.inert = true;
+      node.setAttribute('aria-hidden', 'true');
+      for (const element of [node, ...node.querySelectorAll('*')]) {
+        element.removeAttribute('id');
+        for (const attribute of [...element.attributes]) {
+          if (attribute.name.startsWith('data-') || ['aria-controls', 'aria-live', 'aria-labelledby'].includes(attribute.name)) element.removeAttribute(attribute.name);
+        }
       }
     }
-    return copy;
-  }
+  }).observe(stack, { childList: true, subtree: true });
 
-  function refreshLeaf(index) {
-    front.replaceChildren(snapshot(pages[index].querySelector('.paper-half--right')));
-    back.replaceChildren(snapshot(pages[index + 1].querySelector('.paper-half--left')));
-    leafIndex = index;
+  function scrollProgress() { return clamp((scrollY - start) / step); }
+  function advance() {
+    if (!animated || configuring || engine.getState() !== 'read' || destination === current) return;
+    // Finish a physical fold before following the latest destination. Repeated
+    // input never restarts the same sheet or queues obsolete turns.
+    if (destination > current) engine.flipNext('bottom');
+    else engine.flipPrev('bottom');
   }
-
-  function rest(index) {
-    pages.forEach((page, position) => {
-      page.classList.toggle('is-visible', position === index);
-      page.classList.remove('is-left-only', 'is-right-only');
-    });
-    leaf.classList.remove('is-turning');
-    castShadow.style.setProperty('--cast-shadow', '0');
-    notebook.dataset.turn = '0';
-    leafIndex = -1;
-    if (index !== current) selectPage(index);
-  }
-
-  function draw(progress) {
-    const segment = Math.min(pages.length - 2, Math.floor(progress));
-    const turn = clamp((progress - segment - .24) / .72);
-    if (progress >= pages.length - 1 - .0001 || turn >= .9999) { rest(segment + 1); return; }
-    if (turn <= .0001) { rest(segment); return; }
-    if (leafIndex !== segment) refreshLeaf(segment);
-    pages.forEach((page, index) => {
-      page.classList.toggle('is-visible', index === segment || index === segment + 1);
-      page.classList.toggle('is-left-only', index === segment);
-      page.classList.toggle('is-right-only', index === segment + 1);
-    });
-    const eased = turn * turn * (3 - 2 * turn);
-    const lift = Math.sin(eased * Math.PI);
-    leaf.classList.add('is-turning');
-    leaf.style.transform = `rotateY(${-180 * eased}deg) skewY(${lift * .16}deg) scaleY(${1 - lift * .105})`;
-    leaf.style.setProperty('--leaf-shade', String(lift * .8));
-    castShadow.classList.toggle('is-left', eased > .5);
-    castShadow.style.setProperty('--cast-shadow', String(lift * .65));
-    castShadow.style.setProperty('--shadow-width', String(.25 + .75 * Math.abs(Math.cos(eased * Math.PI))));
-    notebook.dataset.turn = turn.toFixed(3);
-    const active = segment + (turn >= .5 ? 1 : 0);
-    if (active !== current) selectPage(active);
-  }
-
-  function targetProgress() { return clamp((scrollY - start) / step, 0, pages.length - 1); }
-  function render(now) {
+  function render() {
     frame = 0;
-    if (!animated) {
+    if (configuring) return;
+    if (animated) {
+      destination = Math.round(scrollProgress());
+      advance();
+    } else {
       const line = header.offsetHeight + innerHeight * .3;
       const index = pages.reduce((found, page, position) => page.getBoundingClientRect().top < line ? position : found, 0);
       if (index !== current) selectPage(index);
-      return;
     }
-    const target = targetProgress();
-    const elapsed = lastTime ? clamp(now - lastTime, 1, 64) : 16;
-    lastTime = now;
-    // Frame-rate-independent damping smooths wheel and trackpad input.
-    displayedProgress += (target - displayedProgress) * (1 - Math.exp(-elapsed / 85));
-    if (Math.abs(target - displayedProgress) < .0001) displayedProgress = target;
-    draw(displayedProgress);
-    if (displayedProgress !== target) frame = requestAnimationFrame(render);
-    else lastTime = 0;
   }
   function scheduleRender() { if (!frame) frame = requestAnimationFrame(render); }
 
   function configure() {
+    if (configuring) return;
+    configuring = true;
     if (frame) cancelAnimationFrame(frame);
     frame = 0;
-    lastTime = 0;
     const wasAnimated = animated;
+    const oldProgress = animated ? scrollProgress() : current;
     const oldCurrent = current;
-    const oldProgress = animated ? targetProgress() : current;
     const wasScrolled = scrollY > header.offsetHeight;
-    const readingOffset = pages[oldCurrent].getBoundingClientRect().top - header.offsetHeight;
-    notebook.style.setProperty('--header-height', `${header.offsetHeight}px`);
+    const readingOffset = pages[current].getBoundingClientRect().top - header.offsetHeight;
+    if (engine) {
+      const renderer = engine.getRender();
+      renderer.finishAnimation();
+      renderer.setLeftPage(null);
+      renderer.setRightPage(null);
+      renderer.setBottomPage(null);
+      renderer.setFlippingPage(null);
+      renderer.clearShadow();
+      engine.clear();
+    }
+    notebook.classList.remove('is-animated');
     notebook.style.removeProperty('height');
-    const canAnimate = !reducedMotion.matches && !narrowScreen.matches;
-    notebook.classList.toggle('is-animated', canAnimate);
-    pages.forEach(page => page.classList.add('is-visible'));
-    const fits = canAnimate && [...notebook.querySelectorAll('.book-spread > .paper-half')].every(half => {
-      const content = half.querySelector('.page-content');
-      return content.scrollHeight <= content.clientHeight + 2 && half.scrollHeight <= half.clientHeight + 2;
+    notebook.style.setProperty('--header-height', `${header.offsetHeight}px`);
+    stack.removeAttribute('style');
+    pages.forEach(page => {
+      page.className = 'notebook-page';
+      page.removeAttribute('style');
+      page.inert = false;
+      page.removeAttribute('aria-hidden');
     });
+    const canAnimate = !!window.St && !reducedMotion.matches && !compact.matches;
+    notebook.classList.toggle('is-measuring', canAnimate);
+    const fits = canAnimate && pages.every(page => {
+      const content = page.querySelector('.paper-content');
+      return content.scrollHeight <= content.clientHeight + 2 && page.scrollHeight <= page.clientHeight + 2;
+    });
+    notebook.classList.remove('is-measuring');
     animated = fits;
     notebook.classList.toggle('is-animated', animated);
     notebook.dataset.mode = animated ? 'turning' : 'reading';
     controls.hidden = !animated;
-    leafIndex = -1;
-    leaf.classList.remove('is-turning');
-    pages.forEach(page => page.classList.remove('is-left-only', 'is-right-only'));
     if (animated) {
-      step = innerHeight * 1.1;
+      const width = stack.clientWidth;
+      const height = stack.clientHeight;
+      if (!engine) {
+        engine = new St.PageFlip(stack, {
+          width, height, size: 'fixed', usePortrait: true, autoSize: false,
+          showCover: false, drawShadow: true, maxShadowOpacity: .22,
+          flippingTime: 760, useMouseEvents: false, mobileScrollSupport: true,
+          showPageCorners: false,
+        });
+        engine.on('flip', event => { if (!configuring) selectPage(event.data); });
+        engine.on('changeState', event => {
+          notebook.dataset.turning = event.data === 'flipping' ? 'true' : 'false';
+          if (event.data === 'read') scheduleRender();
+        });
+        engine.loadFromHTML(pages);
+      } else {
+        Object.assign(engine.getSettings(), { width, height });
+        engine.updateFromHtml(pages);
+        engine.update();
+      }
+      // The library pairs the last odd page as a hard cover; this notebook
+      // consists of three soft paper sheets, including the final one.
+      pages.forEach((_, index) => engine.getPage(index).setDensity('soft'));
+      stack.style.minWidth = '0';
+      engine.turnToPage(oldCurrent);
+      step = innerHeight * .9;
       start = scrollY + notebook.getBoundingClientRect().top - header.offsetHeight;
       notebook.style.height = `${step * (pages.length - 1) + Math.max(sticky.offsetHeight, innerHeight - header.offsetHeight)}px`;
     }
-    selectPage(current);
+    selectPage(oldCurrent);
+    configuring = false;
     if (wasAnimated && animated) window.scrollTo({ top: Math.max(0, start + step * oldProgress), behavior: 'instant' });
     else if (wasAnimated !== animated && wasScrolled) navigate(oldCurrent, 'instant');
     else if (!animated && wasScrolled) window.scrollTo({ top: scrollY + pages[oldCurrent].getBoundingClientRect().top - header.offsetHeight - readingOffset, behavior: 'instant' });
-    if (animated) {
-      displayedProgress = targetProgress();
-      draw(displayedProgress);
-    } else {
-      pages.forEach(page => page.classList.add('is-visible'));
-      scheduleRender();
-    }
+    scheduleRender();
   }
 
   function navigate(index, behavior = reducedMotion.matches ? 'instant' : 'smooth') {
-    const safeIndex = clamp(index, 0, pages.length - 1);
-    const top = animated ? start + step * safeIndex : scrollY + pages[safeIndex].getBoundingClientRect().top - header.offsetHeight - 14;
+    const safeIndex = clamp(index);
+    const top = animated ? start + step * safeIndex : scrollY + pages[safeIndex].getBoundingClientRect().top - header.offsetHeight - 12;
     window.scrollTo({ top: Math.max(0, top), behavior });
   }
   tabs.forEach((tab, index) => {
@@ -172,7 +172,7 @@
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(configure, 120);
+    resizeTimer = setTimeout(configure, 150);
   });
   reducedMotion.addEventListener('change', configure);
   new MutationObserver(() => requestAnimationFrame(configure)).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
@@ -181,6 +181,5 @@
     if (index >= 0) navigate(index, 'instant');
   }
   window.addEventListener('hashchange', restoreHash);
-  configure();
   document.fonts.ready.then(() => { configure(); restoreHash(); });
 })();
