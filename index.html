@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Economist pursuing an MSc in Business Analytics @UAM. Entrepreneurship, finance, venture capital and personal projects.">
-  <meta name="theme-color" content="#f4f0e8">
+  <meta name="theme-color" content="#222321">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Diego Aranguren">
   <meta property="og:title" content="Diego Aranguren — Economics, analytics & ideas">
@@ -16,13 +16,14 @@
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css?v=20261006-left-links">
   <script src="./carousel.js?v=20261001-crossfade" defer></script>
-  <script src="./language.js?v=20261001-language" defer></script>
+  <script src="./language.js?v=20261010" defer></script>
   <title data-i18n="homeTitle">Diego Aranguren — Economics, analytics & ideas</title>
+  <link rel="stylesheet" href="./notebook.css?v=20261010">
+  <script src="./notebook.js?v=20261010" defer></script>
 </head>
-<body id="top" class="home-page">
-  <div class="paper-stage">
-    <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
-  <header class="site-header">
+<body id="top" class="home-page notebook-home">
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+  <header class="site-header notebook-header">
     <div class="header-inner">
       <div class="header-identity">
         <a class="wordmark" href="./" aria-label="Diego Aranguren — home" data-i18n-label="homeLabel">DIEGO<span class="name-dot" aria-hidden="true">·</span>ARANGUREN</a>
@@ -38,25 +39,34 @@
           </a>
         </nav>
       </div>
-      <nav class="main-nav" aria-label="Main navigation" data-i18n-label="navigation">
-        <a href="./projects/" data-i18n="projects">Projects</a>
-        <a href="./blog/">Blog</a>
-        <a href="./assets/cv/CV_DIEGO-ARANGUREN_SEP_2026.pdf">CV</a>
-      </nav>
-      <button class="language-toggle" type="button" data-language-toggle aria-label="Switch to Spanish" title="Switch to Spanish" lang="es" hidden>ES</button>
+      <div class="header-tools">
+        <a class="notebook-cv" href="./assets/cv/CV_DIEGO-ARANGUREN_SEP_2026.pdf">CV <span class="sr-only">(PDF)</span></a>
+        <button class="language-toggle" type="button" data-language-toggle aria-label="Switch to Spanish" title="Switch to Spanish" lang="es" hidden>ES</button>
+      </div>
     </div>
   </header>
-    <main id="main">
-      <section class="hero content-width" aria-labelledby="intro-title">
-        <div class="hero-copy">
-          <p class="eyebrow" data-i18n="homeEyebrow"><span class="small-cross" aria-hidden="true">+</span> ECONOMICS, ANALYTICS & IDEAS</p>
-          <h1 id="intro-title" data-i18n="intro">Economist pursuing an MSc in Business Analytics <span class="university">@UAM</span></h1>
-          <div class="introduction">
-            <p data-i18n="interests">My interests are entrepreneurship, finance and venture capital, with a strong interest in the technical and analytical side of business.</p>
-            <p data-i18n="personal">AI-native, creative and passionate about developing personal projects, which I share.</p>
-          </div>
-          <a class="editorial-link hero-cta" href="./projects/" data-i18n="exploreProjects">EXPLORE MY PROJECTS</a>
+  <main id="main">
+    <div class="desk-mark desk-mark--left" aria-hidden="true"><span>DA</span><span>×</span><span>DA</span></div>
+    <div class="desk-mark desk-mark--right" aria-hidden="true"><span>×</span><span>DA</span><span>×</span></div>
+    <section class="notebook-journey" data-notebook aria-label="Personal notebook" data-i18n-label="notebookLabel">
+      <div class="notebook-sticky">
+        <div class="notebook-topline">
+          <p class="notebook-label" data-i18n="notebookLabel">Personal notebook</p>
+          <nav class="main-nav notebook-tabs" aria-label="Notebook pages" data-i18n-label="notebookPages">
+            <a href="#notebook-about" data-notebook-tab="0" aria-current="true" data-i18n="about">About</a>
+            <a href="#notebook-blog" data-notebook-tab="1">Blog</a>
+            <a href="#notebook-projects" data-notebook-tab="2" data-i18n="projects">Projects</a>
+          </nav>
         </div>
+        <div class="notebook-cover">
+          <div class="notebook-stack">
+            <section class="notebook-page notebook-page--about" id="notebook-about" data-notebook-page aria-labelledby="intro-title">
+              <div class="page-content">
+                <div class="about-layout">
+                  <div class="about-title">
+                    <p class="handwritten-name">Diego Aranguren<span aria-hidden="true">*</span></p>
+                    <h1 id="intro-title" data-i18n="intro">Economist pursuing an MSc in Business Analytics <span class="university">@UAM</span></h1>
+                  </div>
         <figure class="portrait" data-carousel aria-label="Personal photos" aria-roledescription="carousel" data-i18n-label="photos" data-i18n-role="carousel">
           <div class="portrait-frame">
             <div class="portrait-viewport" id="portrait-slides">
@@ -73,18 +83,61 @@
           </div>
           <figcaption aria-live="polite" aria-atomic="true"><span data-photo-caption>A MOMENT BETWEEN IDEAS.</span><span data-photo-count>01 / 02</span></figcaption>
         </figure>
-      </section>
-
-    </main>
-  </div>
-  <footer class="site-footer">
-      <nav class="explore" aria-label="Explore more" data-i18n-label="exploreMore">
-        <div class="section-links content-width">
-          <a class="section-link" href="./projects/" data-i18n="projects">Projects</a>
-          <a class="section-link" href="./blog/">Blog</a>
-          <a class="section-link" href="./assets/cv/CV_DIEGO-ARANGUREN_SEP_2026.pdf">CV</a>
+                  <div class="about-bio introduction">
+                    <p data-i18n="interests">My interests are entrepreneurship, finance and venture capital, with a strong interest in the technical and analytical side of business.</p>
+                    <p data-i18n="personal">AI-native, creative and passionate about developing personal projects, which I share.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="page-folio"><span data-i18n="homeEyebrow">ECONOMICS, ANALYTICS & IDEAS</span><span>01</span></div>
+            </section>
+            <section class="notebook-page notebook-page--blog" id="notebook-blog" data-notebook-page aria-labelledby="notebook-blog-title">
+              <div class="page-content">
+                <h2 class="page-heading" id="notebook-blog-title">Blog</h2>
+                <article class="notebook-blog-entry" lang="es">
+                  <p class="entry-meta"><span>Blog 01</span><time datetime="2026-10-01">1 de octubre de 2026</time></p>
+                  <h3><a href="./blog/01-que-me-trae-hasta-el-dia-de-hoy/">¿Qué me trae hasta el día de hoy?</a></h3>
+                  <p class="entry-excerpt">Este primer blog lo quiero dedicar a resumir estos últimos años de mi vida que han desencadenado que hoy me encuentre en la situación en la que estoy.</p>
+                  <a class="paper-link" href="./blog/01-que-me-trae-hasta-el-dia-de-hoy/" data-i18n="readPost">READ THE ARTICLE</a>
+                </article>
+                <a class="page-directory" href="./blog/" data-i18n="allPosts">ALL BLOG POSTS</a>
+              </div>
+              <div class="page-folio"><span>Blog</span><span>02</span></div>
+            </section>
+            <section class="notebook-page notebook-page--projects" id="notebook-projects" data-notebook-page aria-labelledby="notebook-projects-title">
+              <div class="page-content">
+                <h2 class="page-heading" id="notebook-projects-title" data-i18n="projects">Projects</h2>
+                <article class="notebook-project" lang="en">
+                  <div>
+                    <h3>MS Capital <span>Market Forecasting</span></h3>
+                    <p class="project-tools">Python / LightGBM / RealMLP</p>
+                  </div>
+                  <div class="notebook-project-copy">
+                    <p>Predicting short-horizon returns from high-frequency trades and order books. This is my research project for Kaggle’s MS Capital financial market forecasting challenge.</p>
+                  </div>
+                  <div class="notebook-project-links">
+                    <a class="paper-link" href="https://github.com/diegoarangureen/mscapital-market-forecasting" target="_blank" rel="noopener noreferrer" data-i18n="viewGithub">VIEW ON GITHUB<span class="sr-only" data-i18n="newTab"> (opens in a new tab)</span></a>
+                    <a class="paper-link" href="https://github.com/diegoarangureen/mscapital-market-forecasting/blob/main/EXPERIMENTS.md" target="_blank" rel="noopener noreferrer" data-i18n="experiments">EXPLORE THE EXPERIMENTS<span class="sr-only" data-i18n="newTab"> (opens in a new tab)</span></a>
+                  </div>
+                </article>
+                <a class="page-directory" href="./projects/" data-i18n="projectDetails">PROJECT DETAILS</a>
+              </div>
+              <div class="page-folio"><span data-i18n="projects">Projects</span><span>03</span></div>
+            </section>
+          </div>
         </div>
-      </nav>
+        <div class="notebook-bottomline">
+          <p class="scroll-note" data-i18n="turnScroll">Scroll to turn the page</p>
+          <div class="page-controls" hidden data-page-controls>
+            <button type="button" data-page-previous aria-label="Previous page" data-i18n-label="previousPage">←</button>
+            <span data-page-counter aria-hidden="true">01 / 03</span>
+            <button type="button" data-page-next aria-label="Next page" data-i18n-label="nextPage">→</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
     <div class="footer-inner">
       <p>© 2026 Diego Aranguren</p>
       <a class="back-to-top" href="#top" data-i18n="backTop">Back to top <span aria-hidden="true">↑</span></a>

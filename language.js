@@ -4,6 +4,15 @@
 
   const spanish = {
     skip: 'Saltar al contenido',
+    notebookLabel: 'Cuaderno personal',
+    notebookPages: 'Hojas del cuaderno',
+    about: 'Sobre mí',
+    turnScroll: 'Baja para pasar de página',
+    readPost: 'LEER EL ARTÍCULO',
+    allPosts: 'TODAS LAS ENTRADAS',
+    projectDetails: 'VER EL PROYECTO',
+    previousPage: 'Página anterior',
+    nextPage: 'Página siguiente',
     homeLabel: 'Diego Aranguren — inicio',
     profiles: 'Perfiles sociales y correo electrónico',
     linkedin: 'LinkedIn — se abre en una pestaña nueva',
