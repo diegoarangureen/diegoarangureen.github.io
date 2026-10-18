@@ -45,13 +45,13 @@
     ugentCaption: 'primer día en UGent',
     viewGithub: 'VER EN GITHUB',
     experiments: 'EXPLORAR LOS EXPERIMENTOS',
-    cvDocument: 'Currículum, septiembre de 2026',
+    cvDocument: 'Currículum, octubre de 2026',
     curriculum: 'CURRÍCULUM VITAE',
-    cvDate: 'Septiembre de 2026',
+    cvDate: 'Octubre de 2026',
     openCv: 'ABRIR CV',
     downloadPdf: 'DESCARGAR PDF',
     previewLabel: 'Abrir el CV completo en PDF en una pestaña nueva',
-    previewAlt: 'Vista previa del CV de Diego Aranguren Gracia de septiembre de 2026, con formación, experiencia profesional, proyectos y habilidades.',
+    previewAlt: 'Vista previa del CV de Diego Aranguren Gracia de octubre de 2026, con formación, experiencia profesional, proyectos y habilidades.',
     previewNote: 'Selecciona la vista previa para abrir el PDF completo.',
   };
 
