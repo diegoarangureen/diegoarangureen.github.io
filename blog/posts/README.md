@@ -17,7 +17,7 @@ La página de lectura usa los estilos compartidos `.blog-article` y `.article-co
 
 GitHub Pages sirve HTML estático en este repositorio: al publicar una entrada hay que conservar el archivo Markdown aquí y preparar su correspondiente HTML. No hay conversión automática configurada.
 
-La portada (`index.html`, sección `#blog`) también muestra el texto completo para leerlo haciendo scroll. Al publicar o editar una entrada, actualiza su contenido tanto en la portada como en su página de lectura.
+La portada (`index.html`, sección `#blog`) también muestra el listado de entradas, con número, título, fecha y enlace a su página de lectura. Al publicar una entrada, actualiza ambos listados; el texto completo se mantiene en su página de lectura.
 
 ## Blog 01
 

@@ -268,7 +268,7 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
 
 .blog-date { display: block; margin-top: 12px; color: var(--muted); font: 400 12px/1.7 var(--sans); letter-spacing: 0; }
 
-/* The homepage continues into Projects and the full blog on the dark grid. */
+/* The homepage continues into Projects and the blog index on the dark grid. */
 .home-content { --ink: #f4f0e8; --muted: #b6bab4; --line: #ffffff30; }
 .home-section { padding-block: 76px 84px; scroll-margin-top: 28px; }
 .home-section + .home-section { border-top: 1px solid var(--line); }
@@ -276,15 +276,11 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
 .home-section-title { margin-bottom: 36px; font: 400 clamp(36px, 4vw, 46px)/1.1 var(--serif); letter-spacing: -1px; }
 .home-content .project-story { margin-bottom: 0; }
 .home-content .project-title-block h3 { font: 400 clamp(28px, 3.1vw, 40px)/1.15 var(--serif); letter-spacing: -1px; }
-.home-post { max-width: 760px; margin-inline: auto; }
-.home-post-header { margin-bottom: 36px; }
-.home-post .blog-kicker { color: var(--muted); margin-bottom: 18px; }
-.home-post h3 { font: 400 clamp(30px, 3.5vw, 44px)/1.2 var(--serif); letter-spacing: -1px; }
-.home-post h3 a:hover { text-decoration: underline; text-decoration-color: var(--orange); text-decoration-thickness: 1px; text-underline-offset: 6px; }
-.home-content .article-content, .home-content .article-content a { color: #e4e2da; }
-.home-content .article-content a:focus-visible { outline-color: var(--orange); }
+.home-content .blog-entry { color: var(--paper); }
+.home-content .blog-entry h3 { font: 400 clamp(26px, 3vw, 37px)/1.25 var(--serif); letter-spacing: -.7px; overflow-wrap: anywhere; }
+.home-content .blog-entry:hover h3 { text-decoration: underline; text-decoration-color: var(--orange); text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.home-content .blog-kicker { color: var(--muted); }
 @media (max-width: 620px) {
   .home-section { padding-block: 44px 52px; scroll-margin-top: 20px; }
   .home-section-title { margin-bottom: 26px; }
-  .home-post-header { margin-bottom: 28px; }
 }
