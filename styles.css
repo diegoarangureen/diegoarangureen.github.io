@@ -76,7 +76,7 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
 .portrait figcaption { display: flex; justify-content: space-between; gap: 15px; margin-top: 16px; color: #666b5f; font-size: 8px; letter-spacing: 1px; }
 .site-footer { background: var(--paper); }
 .home-page { background: #191a19; }
-.home-page .site-footer { --orange: #e3613d; background-color: #191a19; background-image: linear-gradient(#ffffff20 1px, transparent 1px), linear-gradient(90deg, #ffffff20 1px, transparent 1px); background-size: 64px 64px; background-position: center top; color: var(--paper); }
+.home-page .site-footer, .home-content { --orange: #e3613d; background-color: #191a19; background-image: linear-gradient(#ffffff20 1px, transparent 1px), linear-gradient(90deg, #ffffff20 1px, transparent 1px); background-size: 64px 64px; background-position: center top; color: var(--paper); }
 .home-page .footer-inner { color: #d9d9d1; border-top: 1px solid #ffffff30; }
 .home-page .back-to-top:hover { color: var(--orange); }
 .footer-inner { width: min(1310px, calc(100% - 9%)); margin-inline: auto; min-height: 94px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; color: #5e655b; font-size: 10px; }
@@ -267,3 +267,24 @@ h1 { font-family: var(--serif); font-size: clamp(39px, 3.35vw, 49px); font-weigh
 }
 
 .blog-date { display: block; margin-top: 12px; color: var(--muted); font: 400 12px/1.7 var(--sans); letter-spacing: 0; }
+
+/* The homepage continues into Projects and the full blog on the dark grid. */
+.home-content { --ink: #f4f0e8; --muted: #b6bab4; --line: #ffffff30; }
+.home-section { padding-block: 76px 84px; scroll-margin-top: 28px; }
+.home-section + .home-section { border-top: 1px solid var(--line); }
+.home-section:focus-visible { outline: 2px solid var(--orange); outline-offset: 10px; }
+.home-section-title { margin-bottom: 36px; font: 400 clamp(36px, 4vw, 46px)/1.1 var(--serif); letter-spacing: -1px; }
+.home-content .project-story { margin-bottom: 0; }
+.home-content .project-title-block h3 { font: 400 clamp(28px, 3.1vw, 40px)/1.15 var(--serif); letter-spacing: -1px; }
+.home-post { max-width: 760px; margin-inline: auto; }
+.home-post-header { margin-bottom: 36px; }
+.home-post .blog-kicker { color: var(--muted); margin-bottom: 18px; }
+.home-post h3 { font: 400 clamp(30px, 3.5vw, 44px)/1.2 var(--serif); letter-spacing: -1px; }
+.home-post h3 a:hover { text-decoration: underline; text-decoration-color: var(--orange); text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.home-content .article-content, .home-content .article-content a { color: #e4e2da; }
+.home-content .article-content a:focus-visible { outline-color: var(--orange); }
+@media (max-width: 620px) {
+  .home-section { padding-block: 44px 52px; scroll-margin-top: 20px; }
+  .home-section-title { margin-bottom: 26px; }
+  .home-post-header { margin-bottom: 28px; }
+}
