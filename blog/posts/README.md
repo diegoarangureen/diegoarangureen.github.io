@@ -11,13 +11,13 @@ Esta carpeta almacena las entradas originales en Markdown (`.md`).
 
 ## Publicación
 
-El listado de `blog/index.html` muestra el número de entrada (**Blog 01**, etc.) y su título real, enlazados a la página de lectura `blog/01-titulo-de-la-entrada/index.html`.
+Los listados de `blog/index.html` e `index.html` (sección `#blog`) muestran el número de entrada (**Blog 01**, etc.), el título y la fecha. Cada entrada usa un `<details>` cerrado inicialmente: al pulsar su `<summary>`, el artículo se despliega en la misma página sobre fondo negro. No añadas el atributo `open` por defecto.
 
-La página de lectura usa los estilos compartidos `.blog-article` y `.article-content`: texto negro directamente sobre el fondo de la web, sin una tarjeta o panel detrás. Conserva la cabecera, los iconos de contacto y un enlace de regreso al blog.
+La página de lectura independiente conserva su URL para enlaces existentes y comparte el fondo negro y el texto claro. Usa `.blog-article` y `.article-content`, con cabecera, iconos de contacto y un enlace de regreso al blog.
 
 GitHub Pages sirve HTML estático en este repositorio: al publicar una entrada hay que conservar el archivo Markdown aquí y preparar su correspondiente HTML. No hay conversión automática configurada.
 
-La portada (`index.html`, sección `#blog`) también muestra el listado de entradas, con número, título, fecha y enlace a su página de lectura. Al publicar una entrada, actualiza ambos listados; el texto completo se mantiene en su página de lectura.
+Al publicar o editar una entrada, actualiza el texto dentro de los desplegables de ambos listados y en su página de lectura independiente. El contenido cerrado permanece oculto incluso sin JavaScript.
 
 ## Blog 01
 
