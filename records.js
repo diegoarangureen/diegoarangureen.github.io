@@ -1,6 +1,6 @@
 // Record shelf: the covers sit on a ring that fans out on both sides of the
-// one in front. Spin it by scrolling, dragging/swiping, clicking any cover,
-// the arrow buttons or the arrow keys. The record in front slides its vinyl
+// one in front. Spin it by scrolling, dragging/swiping, clicking any cover
+// or the arrow keys. The record in front slides its vinyl
 // out and spins, and its line of text lights up word by word.
 (() => {
   const shelf = document.querySelector('[data-shelf]');
@@ -255,10 +255,7 @@
     wake();
   }, { passive: false });
 
-  /* ---------- Buttons + keyboard ---------- */
-  shelf.querySelector('[data-prev]')?.addEventListener('click', () => { target = Math.round(target) - 1; wake(); });
-  shelf.querySelector('[data-next]')?.addEventListener('click', () => { target = Math.round(target) + 1; wake(); });
-
+  /* ---------- Keyboard ---------- */
   shelf.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') { target = Math.round(target) + 1; e.preventDefault(); wake(); }
     if (e.key === 'ArrowLeft') { target = Math.round(target) - 1; e.preventDefault(); wake(); }

@@ -91,13 +91,9 @@ img { display: block; max-width: 100%; height: auto; }
 .shelf__quote { max-width: 34rem; min-height: 2.6em; font-size: clamp(1rem, 1.6vw, 1.35rem); font-weight: 600; line-height: 1.3; letter-spacing: -.01em; text-wrap: balance; transition: opacity .2s; }
 .shelf__quote .w { color: var(--ink-3); transition: color .35s; }
 .shelf__quote .w.is-lit { color: var(--ink); }
-.shelf__controls { display: flex; align-items: center; gap: 1.4rem; }
-.shelf__now { display: grid; gap: .15rem; min-width: 15rem; transition: opacity .2s; }
+.shelf__now { display: grid; gap: .15rem; transition: opacity .2s; }
 .shelf__now strong { font-size: 1.05rem; font-weight: 600; }
 .shelf__now span { color: var(--ink-2); font-size: .875rem; }
-.shelf__arrow { display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; background: #ffffff1a; color: var(--ink); cursor: pointer; transition: background .2s, transform .2s var(--ease); }
-.shelf__arrow:hover { background: #ffffff2e; }
-.shelf__arrow:active { transform: scale(.92); }
 .is-swapping { opacity: 0; }
 .js .record.is-front:hover .record__sleeve { box-shadow: 0 30px 60px -20px #000, 0 0 0 1px #ffffff40; }
 
@@ -106,8 +102,6 @@ img { display: block; max-width: 100%; height: auto; }
   .js .shelf__head { top: 9svh; }
   .js .shelf__ring { top: 46%; }
   .js .shelf__caption { top: calc(46% + var(--size) / 2 + 3svh); }
-  .shelf__now { min-width: 0; }
-  .shelf__controls { gap: .9rem; }
 }
 
 /* ---------- Tracks (sections) ---------- */
