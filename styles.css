@@ -79,7 +79,7 @@ img { display: block; max-width: 100%; height: auto; }
 .record__label::after { content: ""; position: absolute; left: 50%; top: 50%; width: 9%; height: 9%; border-radius: 50%; background: #000; transform: translate(-50%, -50%); }
 
 /* Scroll-driven mode (JS) */
-.js .shelf { height: 440vh; padding: 0; }
+.js .shelf { height: 560vh; padding: 0; }
 .js .shelf__stage { position: sticky; top: 0; height: 100svh; display: block; overflow: hidden; }
 .js .shelf__head { position: absolute; inset: 11svh 0 auto; padding-inline: var(--gutter); will-change: opacity, transform; }
 .js .shelf__ring { position: absolute; left: 50%; top: 47%; width: 0; height: 0; display: block; perspective: 1500px; perspective-origin: 50% 40%; }
@@ -153,3 +153,9 @@ img { display: block; max-width: 100%; height: auto; }
 .prose a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
 .cv-preview { display: block; margin-top: 2.5rem; overflow: hidden; border-radius: 6px; box-shadow: 0 40px 80px -30px #000, 0 0 0 1px #ffffff1f; }
 .cv-preview img { width: 100%; height: auto; }
+.item + .item { margin-top: 1rem; }
+.item p a:not(.pill):not(.arrow-link) { color: var(--ink); text-decoration: underline; text-decoration-color: var(--ink-3); text-underline-offset: 3px; }
+.live { display: inline-flex; align-items: center; gap: .4em; color: #30d158; font-weight: 600; }
+.live::before { content: ""; width: .5em; height: .5em; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 0 #30d15866; }
+@media (prefers-reduced-motion: no-preference) { .live::before { animation: pulse 2s infinite; } }
+@keyframes pulse { 70% { box-shadow: 0 0 0 .5em #30d15800; } 100% { box-shadow: 0 0 0 0 #30d15800; } }

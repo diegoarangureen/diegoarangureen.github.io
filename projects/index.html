@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Diego Aranguren's projects: MS Capital Market Forecasting, a machine-learning project on high-frequency financial data.">
+  <meta name="description" content="Diego Aranguren's projects: Vela, Thin Ice, a time-series classifier for the GDG UAM ML Contest and MS Capital Market Forecasting.">
   <meta name="theme-color" content="#000000">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Diego Aranguren">
   <meta property="og:title" content="Projects — Diego Aranguren">
-  <meta property="og:description" content="Diego Aranguren's projects: MS Capital Market Forecasting, a machine-learning project on high-frequency financial data.">
+  <meta property="og:description" content="Diego Aranguren's projects: Vela, Thin Ice, a time-series classifier for the GDG UAM ML Contest and MS Capital Market Forecasting.">
   <meta property="og:url" content="https://diegoarangureen.github.io/projects/">
   <meta property="og:image" content="https://diegoarangureen.github.io/assets/covers/myself.jpg">
   <link rel="canonical" href="https://diegoarangureen.github.io/projects/">
@@ -20,14 +20,43 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="island" aria-label="Site">
     <a class="island__name" href="../">Diego</a>
-    <nav class="island__nav" aria-label="Main navigation"><a href="../#projects" aria-current="page">Projects</a><a href="../#blog">Blog</a><a href="../#myself">My self</a></nav>
+    <nav class="island__nav" aria-label="Main navigation"><a href="../#projects" aria-current="page">Projects</a><a href="../#participations">Participations</a><a href="../#blog">Blog</a><a href="../#myself">My self</a></nav>
   </header>
   <main id="main" class="page">
     <a class="back" href="../">‹ Home</a>
     <p class="page__kicker">Side A</p>
     <h1 class="page__title">Projects.</h1>
-    <article class="item" style="margin-top:2.5rem">
-      <p class="item__kicker">01 · Python / LightGBM / RealMLP</p>
+    <div class="items" style="margin-top:2.5rem">
+    <article class="item">
+            <p class="item__kicker">Nov 2026 · JavaScript / Kotlin · with my team at Junction</p>
+            <h2 class="item__title">Vela</h2>
+            <p>Vela remembers faces. Tell her who someone is once, and the next time that person is in view she says it quietly in your ear through Ray-Ban Meta glasses. Built for older people who want to keep their independence, with a "For family" view to manage the people she knows.</p>
+            <p class="item__links">
+              <a class="pill" href="https://meetvela.tech" target="_blank" rel="noopener noreferrer">Visit meetvela.tech<span class="sr-only"> (opens in a new tab)</span></a>
+              <a class="arrow-link" href="https://github.com/diegoarangureen/vela" target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> (opens in a new tab)</span></a>
+            </p>
+          </article>
+          <article class="item">
+            <p class="item__kicker">Nov 2026 · Python / Rust · with my team at Junction</p>
+            <h2 class="item__title">Thin Ice</h2>
+            <p>A reinforcement-learning environment that measures how far ahead an AI model can plan. We invented a small board game, solved all 16.5 billion positions and built 12 puzzles where every move is provably right or wrong.</p>
+            <p>Across 101 runs, the models we tested plan about three moves ahead; ask for five and they usually fall through.</p>
+            <p class="item__links">
+              <a class="pill" href="https://hectoragofi.github.io/thin-ice-replays/" target="_blank" rel="noopener noreferrer">Watch the games<span class="sr-only"> (opens in a new tab)</span></a>
+              <a class="arrow-link" href="https://github.com/hectoragofi/thin-ice" target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> (opens in a new tab)</span></a>
+            </p>
+          </article>
+          <article class="item">
+            <p class="item__kicker">Nov 2026 · Python / Numba · with Xabat Arin</p>
+            <h2 class="item__title">Time-series classifier for the GDG UAM ML Contest</h2>
+            <p>Our entry for the GDG UAM ML Contest 2026: a time-series classifier (4 channels × 256 steps, 8 classes) that has to survive a train/test distribution shift and answer in well under a millisecond.</p>
+            <p>Robust cleaning, MiniRocket features and a small MLP distilled from an InceptionTime ensemble, all in one Numba call per sample: 82.5% on the demo set at 0.14 ms per sample, against the official baseline’s 43.3% at ~35 ms.</p>
+            <p class="item__links">
+              <a class="pill" href="https://github.com/diegoarangureen/gdg-ml-contest-entrega" target="_blank" rel="noopener noreferrer">View on GitHub<span class="sr-only"> (opens in a new tab)</span></a>
+            </p>
+          </article>
+          <article class="item">
+      <p class="item__kicker">Oct 2026 · Python / LightGBM / RealMLP</p>
       <h2 class="item__title">MS Capital Market Forecasting</h2>
       <p>Predicting short-horizon returns from high-frequency trades and order books. My research project for Kaggle’s MS Capital financial market forecasting challenge.</p>
       <p>Feature engineering, LightGBM baselines and RealMLP models. Changes are tested with purged time-series folds and a separate temporal confirmation step; the experiment log records what was tried and what changed.</p>
@@ -36,6 +65,7 @@
         <a class="arrow-link" href="https://github.com/diegoarangureen/mscapital-market-forecasting/blob/main/EXPERIMENTS.md" target="_blank" rel="noopener noreferrer">Read the experiments<span class="sr-only"> (opens in a new tab)</span></a>
       </p>
     </article>
+    </div>
   </main>
   <footer class="footer">
     <p>© 2026 Diego Aranguren</p>

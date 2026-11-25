@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="I am Diego. Economist doing an MSc in Business Analytics at UAM. Projects, blog and a bit about me.">
+  <meta name="description" content="I am Diego. Economist doing an MSc in Business Analytics at UAM. Projects, participations, blog and a bit about me.">
   <meta name="theme-color" content="#000000">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Diego Aranguren">
   <meta property="og:title" content="I am Diego.">
-  <meta property="og:description" content="Economist doing an MSc in Business Analytics at UAM. Projects, blog and a bit about me.">
+  <meta property="og:description" content="Economist doing an MSc in Business Analytics at UAM. Projects, participations, blog and a bit about me.">
   <meta property="og:url" content="https://diegoarangureen.github.io/">
   <meta property="og:image" content="https://diegoarangureen.github.io/assets/covers/myself.jpg">
   <meta property="og:image:alt" content="Portrait of Diego Aranguren in a navy blazer.">
@@ -26,6 +26,7 @@
     <a class="island__name" href="#top">Diego</a>
     <nav class="island__nav" aria-label="Main navigation">
       <a href="#projects">Projects</a>
+      <a href="#participations">Participations</a>
       <a href="#blog">Blog</a>
       <a href="#myself">My self</a>
     </nav>
@@ -42,12 +43,12 @@
       <div class="shelf__stage">
         <header class="shelf__head" data-shelf-head>
           <h2 class="shelf__title" id="shelf-title">My records.</h2>
-          <p class="shelf__sub">Three sides of me. Keep scrolling to spin them.</p>
+          <p class="shelf__sub">Four sides of me. Keep scrolling to spin them.</p>
         </header>
 
         <div class="shelf__ring" data-ring>
           <a class="record" href="#projects" data-record
-             data-title="Projects" data-meta="With friends, building things · 1 project"
+             data-title="Projects" data-meta="Things I have built · 4 projects"
              data-quote="I like building things to understand them. Models, pipelines and experiments, and then I share what worked and what didn't."
              style="--cover: url('assets/covers/projects.jpg')">
             <span class="record__disc" data-disc aria-hidden="true"><span class="record__label"></span></span>
@@ -55,7 +56,18 @@
               <img src="./assets/covers/projects.jpg" width="1000" height="1000" alt="" decoding="async">
               <span class="record__sticker">Projects</span>
             </span>
-            <span class="sr-only">Projects: with friends, building things</span>
+            <span class="sr-only">Projects: things I have built</span>
+          </a>
+          <a class="record" href="#participations" data-record
+             data-title="Participations" data-meta="Hackathons and competitions · 3 so far"
+             data-quote="Forty-eight hours of building in Finland, a two-week ML contest at UAM, and right now a Kaggle competition."
+             style="--cover: url('assets/covers/participations.jpg')">
+            <span class="record__disc" data-disc aria-hidden="true"><span class="record__label"></span></span>
+            <span class="record__sleeve">
+              <img src="./assets/covers/participations.jpg" width="1000" height="1000" alt="" decoding="async">
+              <span class="record__sticker">Participations</span>
+            </span>
+            <span class="sr-only">Participations: hackathons and competitions</span>
           </a>
           <a class="record" href="#blog" data-record
              data-title="Blog" data-meta="Reading, writing, thinking · 1 entry"
@@ -83,7 +95,7 @@
 
         <div class="shelf__caption" aria-hidden="true">
           <p class="shelf__quote" data-quote-out></p>
-          <p class="shelf__now"><strong data-now-title>Projects</strong><span data-now-meta>With friends, building things · 1 project</span></p>
+          <p class="shelf__now"><strong data-now-title>Projects</strong><span data-now-meta>Things I have built · 4 projects</span></p>
         </div>
       </div>
     </section>
@@ -95,7 +107,35 @@
           <p class="track__side">Side A</p>
           <h2 class="track__title" id="projects-title">Projects.</h2>
           <article class="item">
-            <p class="item__kicker">01 · Python / LightGBM / RealMLP</p>
+            <p class="item__kicker">Nov 2026 · JavaScript / Kotlin · with my team at Junction</p>
+            <h3 class="item__title">Vela</h3>
+            <p>Vela remembers faces. Tell her who someone is once, and the next time that person is in view she says it quietly in your ear through Ray-Ban Meta glasses. Built for older people who want to keep their independence, with a "For family" view to manage the people she knows.</p>
+            <p class="item__links">
+              <a class="pill" href="https://meetvela.tech" target="_blank" rel="noopener noreferrer">Visit meetvela.tech<span class="sr-only"> (opens in a new tab)</span></a>
+              <a class="arrow-link" href="https://github.com/diegoarangureen/vela" target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> (opens in a new tab)</span></a>
+            </p>
+          </article>
+          <article class="item">
+            <p class="item__kicker">Nov 2026 · Python / Rust · with my team at Junction</p>
+            <h3 class="item__title">Thin Ice</h3>
+            <p>A reinforcement-learning environment that measures how far ahead an AI model can plan. We invented a small board game, solved all 16.5 billion positions and built 12 puzzles where every move is provably right or wrong.</p>
+            <p>Across 101 runs, the models we tested plan about three moves ahead; ask for five and they usually fall through.</p>
+            <p class="item__links">
+              <a class="pill" href="https://hectoragofi.github.io/thin-ice-replays/" target="_blank" rel="noopener noreferrer">Watch the games<span class="sr-only"> (opens in a new tab)</span></a>
+              <a class="arrow-link" href="https://github.com/hectoragofi/thin-ice" target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> (opens in a new tab)</span></a>
+            </p>
+          </article>
+          <article class="item">
+            <p class="item__kicker">Nov 2026 · Python / Numba · with Xabat Arin</p>
+            <h3 class="item__title">Time-series classifier for the GDG UAM ML Contest</h3>
+            <p>Our entry for the GDG UAM ML Contest 2026: a time-series classifier (4 channels × 256 steps, 8 classes) that has to survive a train/test distribution shift and answer in well under a millisecond.</p>
+            <p>Robust cleaning, MiniRocket features and a small MLP distilled from an InceptionTime ensemble, all in one Numba call per sample: 82.5% on the demo set at 0.14 ms per sample, against the official baseline’s 43.3% at ~35 ms.</p>
+            <p class="item__links">
+              <a class="pill" href="https://github.com/diegoarangureen/gdg-ml-contest-entrega" target="_blank" rel="noopener noreferrer">View on GitHub<span class="sr-only"> (opens in a new tab)</span></a>
+            </p>
+          </article>
+          <article class="item">
+            <p class="item__kicker">Oct 2026 · Python / LightGBM / RealMLP</p>
             <h3 class="item__title">MS Capital Market Forecasting</h3>
             <p>Predicting short-horizon returns from high-frequency trades and order books. My research project for Kaggle’s MS Capital financial market forecasting challenge.</p>
             <p>Feature engineering, LightGBM baselines and RealMLP models. Changes are tested with purged time-series folds and a separate temporal confirmation step; the experiment log records what was tried and what changed.</p>
@@ -108,11 +148,46 @@
       </div>
     </section>
 
+    <section class="track" id="participations" aria-labelledby="participations-title">
+      <div class="track__inner">
+        <figure class="track__cover"><img src="./assets/covers/participations.jpg" width="1000" height="1000" alt="Diego and his three teammates gathered around a laptop at Junction 2026." loading="lazy" decoding="async"></figure>
+        <div class="track__body">
+          <p class="track__side">Side B</p>
+          <h2 class="track__title" id="participations-title">Participations.</h2>
+          <article class="item">
+            <p class="item__kicker"><span class="live">Now</span> · Kaggle</p>
+            <h3 class="item__title">Name That LLM</h3>
+            <p>I am currently competing in Kaggle’s Name That LLM competition.</p>
+            <p class="item__links">
+              <a class="pill" href="https://www.kaggle.com/competitions/name-that-llm" target="_blank" rel="noopener noreferrer">See the competition<span class="sr-only"> (opens in a new tab)</span></a>
+            </p>
+          </article>
+          <article class="item">
+            <p class="item__kicker">Nov 2026 · Espoo, Finland · with my team</p>
+            <h3 class="item__title">Junction 2026</h3>
+            <p>Europe’s biggest hackathon: 48 hours of building with around 2,000 people from more than 100 countries. With my team of four we built <a href="#projects">Vela and Thin Ice</a>.</p>
+            <p class="item__links">
+              <a class="pill" href="https://2026.hackjunction.com/" target="_blank" rel="noopener noreferrer">About Junction<span class="sr-only"> (opens in a new tab)</span></a>
+            </p>
+          </article>
+          <article class="item">
+            <p class="item__kicker">Nov 2026 · Madrid · with Xabat Arin</p>
+            <h3 class="item__title">GDG UAM ML Contest</h3>
+            <p>The first Machine Learning Contest by GDG on Campus UAM: two weeks to build a model that classifies time series, well and fast. Our entry got 82.5% on the demo set at 0.14 ms per sample.</p>
+            <p class="item__links">
+              <a class="pill" href="https://gdguam.es/blog/guia-concurso-de-ml" target="_blank" rel="noopener noreferrer">About the contest<span class="sr-only"> (opens in a new tab)</span></a>
+              <a class="arrow-link" href="https://github.com/diegoarangureen/gdg-ml-contest-entrega" target="_blank" rel="noopener noreferrer">Our entry on GitHub<span class="sr-only"> (opens in a new tab)</span></a>
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="track" id="blog" aria-labelledby="blog-title">
       <div class="track__inner">
         <figure class="track__cover"><img src="./assets/covers/blog.jpg" width="1000" height="1000" alt="Diego reading a book outdoors, lying on a lounger under the trees." loading="lazy" decoding="async"></figure>
         <div class="track__body">
-          <p class="track__side">Side B</p>
+          <p class="track__side">Side C</p>
           <h2 class="track__title" id="blog-title">Blog.</h2>
           <ol class="tracklist">
             <li>
@@ -132,7 +207,7 @@
       <div class="track__inner">
         <figure class="track__cover"><img src="./assets/covers/myself.jpg" width="1000" height="1000" alt="Portrait of Diego Aranguren in a navy blazer and light blue shirt." loading="lazy" decoding="async"></figure>
         <div class="track__body">
-          <p class="track__side">Side C</p>
+          <p class="track__side">Side D</p>
           <h2 class="track__title" id="myself-title">My self.</h2>
           <p class="track__lead">Economist pursuing an MSc in Business Analytics at UAM.</p>
           <p>My interests are entrepreneurship, finance and venture capital, with a strong pull towards the technical and analytical side of business.</p>
