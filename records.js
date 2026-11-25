@@ -1,18 +1,17 @@
-// Record ring: the covers sit around a tilted circle with the selected one at
-// the front. Drag/swipe, click any cover or use the arrow keys to spin it; it
-// settles with a spring. The centre of the ring links to the selected section.
+// Record row (cover flow): the front record faces you with its vinyl peeking
+// out, the rest fold away on both sides and stack up at the edges. Drag/swipe,
+// click any cover or use the arrow keys; it settles with a spring. Clicking
+// the front record opens its section.
 (() => {
   const shelf = document.querySelector('[data-shelf]');
   if (!shelf) return;
 
   const stage = shelf.querySelector('.shelf__stage');
-  const ring = shelf.querySelector('[data-ring]');
-  const centre = shelf.querySelector('.shelf__centre');
+  const row = shelf.querySelector('[data-row]');
   const nowEl = shelf.querySelector('.shelf__now');
   const nowTitle = shelf.querySelector('[data-now-title]');
   const nowMeta = shelf.querySelector('[data-now-meta]');
-  const openLink = shelf.querySelector('[data-open]');
-  const originals = [...ring.querySelectorAll('[data-record]')];
+  const originals = [...row.querySelectorAll('[data-record]')];
   const n = originals.length;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -36,48 +35,45 @@
     }
   }
 
-  // Repeat the covers so the ring is full.
+  // Repeat the covers so the row is full on both sides.
   const copies = Math.max(1, Math.ceil(12 / n));
   const M = n * copies;
   const slots = [];
   for (let c = 0; c < copies; c++) {
     originals.forEach((rec, j) => {
       const el = c === 0 ? rec : rec.cloneNode(true);
-      if (c > 0) { el.setAttribute('aria-hidden', 'true'); el.tabIndex = -1; ring.append(el); }
+      if (c > 0) { el.setAttribute('aria-hidden', 'true'); el.tabIndex = -1; row.append(el); }
       el.dataset.slot = String(c * n + j);
       el.draggable = false;
       el.querySelectorAll('img').forEach((img) => { img.draggable = false; });
-      slots.push({ el, shade: el.querySelector('.record__shade') });
+      slots.push({ el, disc: el.querySelector('[data-disc]'), shade: el.querySelector('.record__shade'), spin: 0 });
     });
   }
-  const wrap = (d) => d - M * Math.round(d / M); // shortest signed distance on the ring
+  const wrap = (d) => d - M * Math.round(d / M); // shortest signed distance around the loop
   const indexAt = (p) => mod(Math.round(p), M) % n;
 
   /* ---------- Layout ---------- */
-  const TILT = (56 * Math.PI) / 180;
-  let g = 300, R = 0, far = 0, zoom = 1, ringY = 0;
-
+  let g = 300, spread = 0, stack = 0;
   function measure() {
-    const W = stage.clientWidth;
-    const H = stage.clientHeight || innerHeight;
     g = originals[0].offsetWidth || 300;
-    R = (g * 1.06) / (2 * Math.sin(Math.PI / M));
-    far = R * 4.2;
-    const half = Math.hypot(R + g / 2, g / 2);
-    const proj = (z) => far / (far - z * Math.cos(TILT));
-    const down = half * Math.sin(TILT) * proj(half);
-    const up = half * Math.sin(TILT) * proj(-half);
-    let wide = 0;
-    for (let a = 0; a <= Math.PI; a += Math.PI / 36) wide = Math.max(wide, Math.abs(half * Math.sin(a)) * proj(half * Math.cos(a)));
-    const top = 72, bottom = 40;
-    const avail = H - top - bottom;
-    zoom = Math.min((W >= 700 ? W - 24 : W * 1.4) / (2 * wide), avail / (down + up));
-    ringY = top + (avail - (down + up) * zoom) / 2 + up * zoom - H / 2; // relative to the stage centre
+    spread = g * 0.66;
+    stack = g * (stage.clientWidth > 760 ? 0.36 : 0.26);
+  }
 
-    // The centre text fits inside the hole of the ring.
-    const hole = Math.min(W - 40, (R - g * 0.75) * zoom * 2);
-    centre.style.setProperty('--hole', `${Math.max(140, hole).toFixed(1)}px`);
-    centre.style.top = `${(H / 2 + ringY).toFixed(1)}px`;
+  function flow(e) {
+    const a = Math.abs(e), sg = Math.sign(e);
+    const r = Math.min(a, 1);
+    const i = Math.max(0, a - 1);
+    const o = Math.max(0, i - 2);
+    const s = i - o + 0.6 * (1 - Math.exp(-o / 0.6)); // covers bunch up past the third
+    return {
+      x: sg * (r * spread + Math.sin(Math.PI * r) * g * 0.05 + s * stack),
+      yaw: -sg * r * 60,
+      scale: 1 - r * 0.14 - Math.min(o, 1) * 0.04,
+      shade: r * 0.38 + Math.min(i, 2) * 0.12 + 0.38 * Math.min(1, (o / Math.max(0.5, M / 2 - 3)) * 1.6),
+      alpha: clamp((M / 2 - a) * 2, 0, 1),
+      z: 1000 - Math.round(a),
+    };
   }
 
   /* ---------- State ---------- */
@@ -91,8 +87,6 @@
     const swap = () => {
       nowTitle.textContent = originals[i].dataset.title;
       nowMeta.textContent = originals[i].dataset.meta;
-      openLink.href = originals[i].getAttribute('href');
-      openLink.querySelector('span').textContent = originals[i].dataset.title;
       nowEl.classList.remove('is-swapping');
     };
     if (first) return swap();
@@ -100,41 +94,44 @@
     setTimeout(swap, 160);
   }
 
-  function place() {
+  function place(dt) {
+    const settled = pos.settled && !dragging;
     slots.forEach((s, k) => {
       const e = wrap(k - pos.value);
       const a = Math.abs(e);
-      const c = (e * 2 * Math.PI) / M;
-      const depth = R * Math.cos(c);
-      const k3 = (far / (far - depth * Math.cos(TILT))) * zoom;
-      const x = R * Math.sin(c) * k3;
-      const y = ringY + depth * Math.sin(TILT) * k3;
-      s.el.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) rotateZ(${((-e * 360) / M).toFixed(3)}deg) scale(${k3.toFixed(4)})`;
-      s.el.style.zIndex = String(1000 - Math.round(a * 10));
-      s.shade.style.opacity = (Math.min(a, 1) * 0.14 + Math.max(0, a - 1) * 0.045).toFixed(3);
+      const f = flow(e);
+      s.el.style.transform = `translate3d(${f.x.toFixed(2)}px, 0, 0) perspective(${(g * 2.6).toFixed(0)}px) rotateY(${f.yaw.toFixed(3)}deg) scale(${f.scale.toFixed(4)})`;
+      s.el.style.opacity = f.alpha.toFixed(3);
+      s.el.style.pointerEvents = f.alpha < 0.2 ? 'none' : '';
+      s.el.style.zIndex = String(f.z);
+      s.shade.style.opacity = f.shade.toFixed(3);
       s.el.classList.toggle('is-front', a < 0.5);
+      const out = clamp(1 - a * 2, 0, 1);
+      if (!reduce.matches && settled && out > 0.5) s.spin = (s.spin + dt * 0.012) % 360;
+      s.disc.style.setProperty('--out', `${(out * 34).toFixed(2)}%`);
+      s.disc.style.setProperty('--spin', `${s.spin.toFixed(1)}deg`);
     });
     showNow(indexAt(pos.target));
   }
 
-  /* ---------- Loop ---------- */
-  let raf = 0, lastT = 0;
+  /* ---------- Loop (keeps running while visible so the front vinyl spins) ---------- */
+  let raf = 0, lastT = 0, visible = true;
   function tick(t) {
     const dt = lastT ? Math.min(1 / 30, (t - lastT) / 1000) : 1 / 60;
     lastT = t;
     if (reduce.matches) pos.set(pos.target); else pos.step(dt);
-    place();
-    raf = pos.settled && !dragging ? 0 : requestAnimationFrame(tick);
+    place(dt * 1000);
+    raf = visible && !(reduce.matches && pos.settled) ? requestAnimationFrame(tick) : 0;
   }
   const wake = () => { if (!raf) { lastT = 0; raf = requestAnimationFrame(tick); } };
   const goTo = (p) => { pos.target = Math.round(p); wake(); };
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) wake(); }).observe(stage);
 
   /* ---------- Drag / swipe ---------- */
   let dragging = false, pointerId = null, startX = 0, startY = 0, startPos = 0, moved = false;
   let samples = [];
-  const perSlot = () => ((2 * Math.PI * R) / M) * zoom;
 
-  ring.addEventListener('pointerdown', (e) => {
+  row.addEventListener('pointerdown', (e) => {
     if (e.button !== 0) return;
     pointerId = e.pointerId;
     startX = e.clientX; startY = e.clientY;
@@ -149,13 +146,13 @@
       dragging = moved = true;
       startX = e.clientX;
       startPos = pos.value;
-      ring.setPointerCapture?.(e.pointerId);
+      row.setPointerCapture?.(e.pointerId);
       shelf.classList.add('is-dragging');
     }
     const t = performance.now();
     samples.push({ x: e.clientX, t });
     while (samples.length > 2 && t - samples[0].t > 100) samples.shift();
-    pos.set(startPos - (e.clientX - startX) / perSlot());
+    pos.set(startPos - (e.clientX - startX) / spread);
     wake();
   });
   const endDrag = (e) => {
@@ -167,13 +164,13 @@
     const a = samples[0], b = samples[samples.length - 1];
     const vel = b.t > a.t && performance.now() - b.t < 70 ? ((b.x - a.x) / (b.t - a.t)) * 1000 : 0;
     const coast = ((vel / 1000) * 0.996) / (1 - 0.996); // where a flick would glide to
-    goTo(pos.value - clamp(coast / perSlot(), -3, 3));
+    goTo(pos.value - clamp(coast / spread, -3, 3));
   };
   addEventListener('pointerup', endDrag);
   addEventListener('pointercancel', endDrag);
 
-  // Click a cover to bring it to the front; click the front one to open its section.
-  ring.addEventListener('click', (e) => {
+  // Click a side cover to bring it to the front; click the front one to open it.
+  row.addEventListener('click', (e) => {
     const el = e.target.closest('[data-record]');
     if (!el) return;
     if (moved) { e.preventDefault(); moved = false; return; }
@@ -184,10 +181,10 @@
     }
   });
 
-  ring.addEventListener('wheel', (e) => {
+  row.addEventListener('wheel', (e) => {
     if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
     e.preventDefault();
-    goTo(pos.value + e.deltaX / perSlot());
+    goTo(pos.value + e.deltaX / spread);
   }, { passive: false });
 
   shelf.addEventListener('keydown', (e) => {
@@ -202,7 +199,7 @@
   }));
 
   measure();
-  place();
-  addEventListener('resize', () => { measure(); place(); });
-  document.fonts?.ready.then(() => { measure(); place(); });
+  place(16);
+  wake();
+  addEventListener('resize', () => { measure(); wake(); });
 })();
