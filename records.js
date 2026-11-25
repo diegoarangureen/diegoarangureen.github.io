@@ -10,6 +10,7 @@
   const nowEl = shelf.querySelector('.shelf__now');
   const nowTitle = shelf.querySelector('[data-now-title]');
   const nowMeta = shelf.querySelector('[data-now-meta]');
+  const quoteEl = shelf.querySelector('[data-quote-out]');
   const originals = [...row.querySelectorAll('[data-record]')];
   const tracks = [...document.querySelectorAll('.track')];
   const n = originals.length;
@@ -114,6 +115,34 @@
     setTimeout(swap, 160);
   }
 
+  // Each record's line lights up word by word once it settles at the front.
+  const quotes = originals.map((r) => (r.dataset.quote || '').split(/\s+/).filter(Boolean));
+  let shownQuote = -1, litTimer = 0, swapTimer = 0;
+  function showQuote(i) {
+    if (i === shownQuote) return;
+    shownQuote = i;
+    clearInterval(litTimer);
+    clearTimeout(swapTimer);
+    quoteEl.classList.add('is-swapping');
+    swapTimer = setTimeout(() => {
+      quoteEl.textContent = '';
+      const words = quotes[i].map((w, k) => {
+        const s = document.createElement('span');
+        s.className = 'w';
+        s.textContent = w;
+        quoteEl.append(s, k < quotes[i].length - 1 ? ' ' : '');
+        return s;
+      });
+      quoteEl.classList.remove('is-swapping');
+      if (reduce.matches) return words.forEach((w) => w.classList.add('is-lit'));
+      let k = 0;
+      litTimer = setInterval(() => {
+        if (k >= words.length) return clearInterval(litTimer);
+        words[k++].classList.add('is-lit');
+      }, 70);
+    }, 200);
+  }
+
   function place() {
     slots.forEach((s, k) => {
       const e = wrap(k - pos.value);
@@ -126,6 +155,7 @@
       s.el.classList.toggle('is-front', Math.abs(e) < 0.5);
     });
     showNow(indexAt(pos.target));
+    if (!dragging && Math.abs(pos.value - Math.round(pos.value)) < 0.12) showQuote(indexAt(pos.value));
   }
 
   let raf = 0, lastT = 0;
