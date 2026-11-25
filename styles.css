@@ -70,7 +70,7 @@ img { display: block; max-width: 100%; height: auto; }
   linear-gradient(115deg, transparent 0 30%, #ffffff26 38%, transparent 46% 62%, #ffffff14 68%, transparent 74%),
   linear-gradient(180deg, #ffffff12, transparent 30% 70%, #0000004d); mix-blend-mode: screen; }
 .record__sticker { position: absolute; top: 7%; right: 7%; z-index: 1; padding: .32em .7em; border-radius: 999px; background: #f5f5f7eb; color: #111; font-size: clamp(.68rem, calc(var(--size) * .04), .9rem); font-weight: 600; letter-spacing: -.01em; box-shadow: 0 4px 14px #0006; }
-.record__disc { position: absolute; inset: 3%; z-index: 0; border-radius: 50%; background:
+.record__disc { position: absolute; inset: 3%; z-index: 0; pointer-events: none; border-radius: 50%; background:
   radial-gradient(circle, transparent 0 17%, #0000 17.4%),
   conic-gradient(from 30deg, #ffffff00, #ffffff1c 8%, #ffffff00 18%, #ffffff00 50%, #ffffff16 58%, #ffffff00 68%),
   repeating-radial-gradient(circle, #0b0b0b 0 1.6px, #1b1b1c 1.6px 3.2px);

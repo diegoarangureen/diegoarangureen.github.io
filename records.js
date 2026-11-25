@@ -1,5 +1,5 @@
-// Record row (cover flow): the front record faces you with its vinyl peeking
-// out, the rest fold away on both sides and stack up at the edges. Drag/swipe,
+// Record row (cover flow), seen from the front: the selected record faces you
+// with its vinyl peeking out and its neighbours fold away on each side. Drag/swipe,
 // click any cover or use the arrow keys; it settles with a spring. Clicking
 // the front record opens its section.
 (() => {
@@ -35,9 +35,9 @@
     }
   }
 
-  // Repeat the covers so the row is full on both sides.
-  const copies = Math.max(1, Math.ceil(12 / n));
-  const M = n * copies;
+  // One slot per record; they loop round, so there is always one on each side.
+  const copies = 1;
+  const M = n;
   const slots = [];
   for (let c = 0; c < copies; c++) {
     originals.forEach((rec, j) => {
