@@ -123,6 +123,12 @@ html:not(.js) .track__back { display: none; }
   .island__nav a { padding-inline: .5rem; }
 }
 
+@media (max-width: 420px) {
+  .island { gap: .3rem; padding: .45rem .45rem .45rem .8rem; font-size: .75rem; }
+  .island__nav { gap: 0; }
+  .island__nav a { padding-inline: .42rem; }
+}
+
 /* ---------- Footer ---------- */
 .footer { display: flex; justify-content: space-between; gap: 1rem; width: min(100% - 2 * var(--gutter), 1080px); margin-inline: auto; padding: 2rem 0 2.5rem; border-top: 1px solid var(--line); color: var(--ink-2); font-size: .8125rem; }
 .footer a:hover { color: var(--ink); }
