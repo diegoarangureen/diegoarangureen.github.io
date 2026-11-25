@@ -133,7 +133,7 @@ html:not(.js) .track__back { display: none; }
 .footer { display: flex; justify-content: space-between; gap: 1rem; width: min(100% - 2 * var(--gutter), 1080px); margin-inline: auto; padding: 2rem 0 2.5rem; border-top: 1px solid var(--line); color: var(--ink-2); font-size: .8125rem; }
 .footer a:hover { color: var(--ink); }
 
-/* ---------- Inner pages (blog post, CV, lists) ---------- */
+/* ---------- Inner pages (thoughts posts, CV, lists) ---------- */
 .page { width: min(100% - 2 * var(--gutter), 720px); margin-inline: auto; padding: 8.5rem 0 6rem; }
 .page--wide { width: min(100% - 2 * var(--gutter), 1080px); }
 .back { display: inline-block; margin-bottom: 2.5rem; color: var(--accent); font-size: .9375rem; }
