@@ -1,17 +1,17 @@
-// Record row (cover flow), seen from the front: the selected record faces you
-// with its vinyl peeking out and its neighbours fold away on each side. Drag/swipe,
-// click any cover or use the arrow keys; it settles with a spring. Clicking
-// the front record opens its section.
+// Record row (cover flow): the selected record faces you, the rest fold away on
+// both sides and stack up at the edges. Drag it with the mouse or a finger, use
+// a horizontal trackpad swipe or the arrow keys; it settles with a spring.
+// Picking a record opens its info section, which is hidden until then.
 (() => {
   const shelf = document.querySelector('[data-shelf]');
   if (!shelf) return;
 
-  const stage = shelf.querySelector('.shelf__stage');
   const row = shelf.querySelector('[data-row]');
   const nowEl = shelf.querySelector('.shelf__now');
   const nowTitle = shelf.querySelector('[data-now-title]');
   const nowMeta = shelf.querySelector('[data-now-meta]');
   const originals = [...row.querySelectorAll('[data-record]')];
+  const tracks = [...document.querySelectorAll('.track')];
   const n = originals.length;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -35,9 +35,9 @@
     }
   }
 
-  // One slot per record; they loop round, so there is always one on each side.
-  const copies = 1;
-  const M = n;
+  // Repeat the covers so the row is full on both sides, as on a real shelf.
+  const copies = Math.max(1, Math.ceil(12 / n));
+  const M = n * copies;
   const slots = [];
   for (let c = 0; c < copies; c++) {
     originals.forEach((rec, j) => {
@@ -46,18 +46,38 @@
       el.dataset.slot = String(c * n + j);
       el.draggable = false;
       el.querySelectorAll('img').forEach((img) => { img.draggable = false; });
-      slots.push({ el, disc: el.querySelector('[data-disc]'), shade: el.querySelector('.record__shade'), spin: 0 });
+      slots.push({ el, shade: el.querySelector('.record__shade') });
     });
   }
   const wrap = (d) => d - M * Math.round(d / M); // shortest signed distance around the loop
   const indexAt = (p) => mod(Math.round(p), M) % n;
+
+  /* ---------- Info sections: hidden until a record is picked ---------- */
+  function openSection(id, scroll = true) {
+    const target = tracks.find((t) => t.id === id);
+    if (!target) return false;
+    tracks.forEach((t) => t.classList.toggle('is-open', t === target));
+    if (location.hash !== `#${id}`) history.replaceState(null, '', `#${id}`);
+    if (scroll) target.scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: 'start' });
+    const j = originals.findIndex((r) => r.getAttribute('href') === `#${id}`);
+    if (j >= 0 && indexAt(pos.target) !== j) goToIndex(j);
+    return true;
+  }
+
+  // Any in-page link to a section (top nav, links inside the page) opens it too.
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a || row.contains(a)) return;
+    if (openSection(a.getAttribute('href').slice(1))) e.preventDefault();
+  });
+  addEventListener('hashchange', () => openSection(location.hash.slice(1)));
 
   /* ---------- Layout ---------- */
   let g = 300, spread = 0, stack = 0;
   function measure() {
     g = originals[0].offsetWidth || 300;
     spread = g * 0.66;
-    stack = g * (stage.clientWidth > 760 ? 0.36 : 0.26);
+    stack = g * (row.clientWidth > 760 ? 0.36 : 0.26);
   }
 
   function flow(e) {
@@ -76,7 +96,7 @@
     };
   }
 
-  /* ---------- State ---------- */
+  /* ---------- State + rendering ---------- */
   const pos = new Spring(0, 0.5);
   let shown = -1;
 
@@ -94,40 +114,37 @@
     setTimeout(swap, 160);
   }
 
-  function place(dt) {
-    const settled = pos.settled && !dragging;
+  function place() {
     slots.forEach((s, k) => {
       const e = wrap(k - pos.value);
-      const a = Math.abs(e);
       const f = flow(e);
       s.el.style.transform = `translate3d(${f.x.toFixed(2)}px, 0, 0) perspective(${(g * 2.6).toFixed(0)}px) rotateY(${f.yaw.toFixed(3)}deg) scale(${f.scale.toFixed(4)})`;
       s.el.style.opacity = f.alpha.toFixed(3);
       s.el.style.pointerEvents = f.alpha < 0.2 ? 'none' : '';
       s.el.style.zIndex = String(f.z);
       s.shade.style.opacity = f.shade.toFixed(3);
-      s.el.classList.toggle('is-front', a < 0.5);
-      const out = clamp(1 - a * 2, 0, 1);
-      if (!reduce.matches && settled && out > 0.5) s.spin = (s.spin + dt * 0.012) % 360;
-      s.disc.style.setProperty('--out', `${(out * 34).toFixed(2)}%`);
-      s.disc.style.setProperty('--spin', `${s.spin.toFixed(1)}deg`);
+      s.el.classList.toggle('is-front', Math.abs(e) < 0.5);
     });
     showNow(indexAt(pos.target));
   }
 
-  /* ---------- Loop (keeps running while visible so the front vinyl spins) ---------- */
-  let raf = 0, lastT = 0, visible = true;
+  let raf = 0, lastT = 0;
   function tick(t) {
     const dt = lastT ? Math.min(1 / 30, (t - lastT) / 1000) : 1 / 60;
     lastT = t;
     if (reduce.matches) pos.set(pos.target); else pos.step(dt);
-    place(dt * 1000);
-    raf = visible && !(reduce.matches && pos.settled) ? requestAnimationFrame(tick) : 0;
+    place();
+    raf = pos.settled && !dragging ? 0 : requestAnimationFrame(tick);
   }
   const wake = () => { if (!raf) { lastT = 0; raf = requestAnimationFrame(tick); } };
   const goTo = (p) => { pos.target = Math.round(p); wake(); };
-  new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) wake(); }).observe(stage);
+  function goToIndex(j) {
+    let best = Infinity;
+    for (let s = j; s < M; s += n) { const d = wrap(s - pos.target); if (Math.abs(d) < Math.abs(best)) best = d; }
+    goTo(pos.target + best);
+  }
 
-  /* ---------- Drag / swipe ---------- */
+  /* ---------- Drag with mouse or finger ---------- */
   let dragging = false, pointerId = null, startX = 0, startY = 0, startPos = 0, moved = false;
   let samples = [];
 
@@ -169,16 +186,14 @@
   addEventListener('pointerup', endDrag);
   addEventListener('pointercancel', endDrag);
 
-  // Click a side cover to bring it to the front; click the front one to open it.
+  // Picking a record (without dragging) brings it to the front and opens its info.
   row.addEventListener('click', (e) => {
     const el = e.target.closest('[data-record]');
     if (!el) return;
-    if (moved) { e.preventDefault(); moved = false; return; }
-    const slot = Number(el.dataset.slot);
-    if (Math.abs(wrap(slot - pos.value)) > 0.5) {
-      e.preventDefault();
-      goTo(pos.target + wrap(slot - pos.target));
-    }
+    e.preventDefault();
+    if (moved) { moved = false; return; }
+    goTo(pos.target + wrap(Number(el.dataset.slot) - pos.target));
+    openSection(el.getAttribute('href').slice(1));
   });
 
   row.addEventListener('wheel', (e) => {
@@ -191,15 +206,11 @@
     if (e.key === 'ArrowRight') { goTo(pos.target + 1); e.preventDefault(); }
     if (e.key === 'ArrowLeft') { goTo(pos.target - 1); e.preventDefault(); }
   });
-  originals.forEach((rec, j) => rec.addEventListener('focus', () => {
-    if (indexAt(pos.target) === j) return;
-    let best = Infinity;
-    for (let s = j; s < M; s += n) { const d = wrap(s - pos.target); if (Math.abs(d) < Math.abs(best)) best = d; }
-    goTo(pos.target + best);
-  }));
+  originals.forEach((rec, j) => rec.addEventListener('focus', () => { if (indexAt(pos.target) !== j) goToIndex(j); }));
 
   measure();
-  place(16);
-  wake();
-  addEventListener('resize', () => { measure(); wake(); });
+  place();
+  addEventListener('resize', () => { measure(); place(); });
+  // Arriving with a section in the URL (e.g. from another page) opens it.
+  if (location.hash) requestAnimationFrame(() => openSection(location.hash.slice(1)));
 })();
